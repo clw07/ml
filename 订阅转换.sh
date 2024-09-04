@@ -5,6 +5,7 @@ subscribe_link="https://xtls.rprx.vision/api/v1/client/subscribe?token=bad2089c3
 new_host="space.dingtalk.com"
 repo_dir="/data/data/com.termux/files/home/ml"  # 你的Git仓库本地路径
 file_name="免流.yaml"  # 最终输出文件名
+replace_prefix="免流"
 
 # 下载文件，不要修改UA
 curl -A "v2rayNG/1.8.0" -o downloaded_file "$subscribe_link"
