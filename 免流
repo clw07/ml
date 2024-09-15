@@ -104,7 +104,7 @@ proxy-providers:
     
 
 proxy-groups:
-  - name:  🌏 proxy
+  - name: proxy
     type: select
     url: 'http://g.alicdn.com/'
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
