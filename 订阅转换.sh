@@ -2,8 +2,11 @@
 
 # 定义变量
 subscribe_link="https://xtls.rprx.vision/api/v1/client/subscribe?token=bad2089c3450eebf1547d9879cb595d9"
+
+"https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
 new_host="space.dingtalk.com"
-replace_prefix="免流"
+
+replace_prefix="免"
 repo_dir="/data/data/com.termux/files/home/ml"  # Git仓库本地路径
 file_name="免流.yaml"  # 最终输出文件名
 
