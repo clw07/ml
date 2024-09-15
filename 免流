@@ -80,7 +80,7 @@ proxy-providers:
       interval: 600
   木瓜:
     type: http
-    url: "https://xtls.rprx.vision/api/v1/client/subscribe?token=bad2089c3450eebf1547d9879cb595d9"
+    url: "https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
     path: ./ProxyProviders/木瓜.yaml
     interval: 3600
     health-check:
