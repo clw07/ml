@@ -80,7 +80,7 @@ proxy-providers:
       interval: 600
   木瓜:
     type: http
-    url: "https://proxyinfo.net/api/v1/client/subscribe?token=1327869edc6c0bd6802060e4e1b67be5"
+    url: "https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
     path: ./ProxyProviders/木瓜.yaml
     interval: 3600
     health-check:
