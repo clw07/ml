@@ -72,6 +72,11 @@ proxy-providers:
     type: http
     url: "https://raw.githubusercontent.com/clw07/ml/main/免流.yaml"
     path: ./ProxyProviders/国际.yaml
+    header:
+      User-Agent:
+      - "Clash/v1.18.0"
+      - "mihomo/v1.18.5"
+      - "Clash.Meta/v2.10.2"
     interval: 3600
     health-check:
       lazy: true
@@ -82,6 +87,11 @@ proxy-providers:
     type: http
     url: "https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
     path: ./ProxyProviders/木瓜.yaml
+    header:
+      User-Agent:
+      - "Clash/v1.18.0"
+      - "mihomo/v1.18.5"
+      - "Clash.Meta/v2.10.2"
     interval: 3600
     health-check:
       lazy: true
@@ -94,7 +104,7 @@ proxy-providers:
     
 
 proxy-groups:
-  - name: proxy
+  - name:  🌏 proxy
     type: select
     url: 'http://g.alicdn.com/'
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
