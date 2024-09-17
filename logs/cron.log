@@ -1415,3 +1415,171 @@ To https://github.com/clw07/ml.git
    f56ff0d..af23f83  main -> main
 /data/data/com.termux/files/home/ml/订阅转换.sh: line 65: unexpected EOF while looking for matching `"'
 Finished script at Mon Sep 16 00:16:43 CST 2024
+Starting script at Tue Sep 17 14:22:09 CST 2024
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0100 17708    0 17708    0     0   6702      0 --:--:--  0:00:02 --:--:--  6705
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0
+curl: (35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to proxyinfo.net:443 
+base64: downloaded_file: No such file or directory
+rm: cannot remove 'downloaded_file': No such file or directory
+[main 329c091] Auto update subscription file
+ 1 file changed, 28 insertions(+), 38 deletions(-)
+To https://github.com/clw07/ml.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/clw07/ml.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+处理完成并已推送到GitHub，文件名为 免流.yaml
+Finished script at Tue Sep 17 14:22:22 CST 2024
+Starting script at Tue Sep 17 15:26:10 CST 2024
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100 17708    0 17708    0     0  13349      0 --:--:--  0:00:01 --:--:-- 13354
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 13592    0 13592    0     0  13574      0 --:--:--  0:00:01 --:--:-- 13578
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+base64: invalid input
+On branch main
+Your branch is ahead of 'origin/main' by 3 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   logs/cron.log
+	modified:   "\350\256\242\351\230\205\350\275\254\346\215\242.sh"
+
+no changes added to commit (use "git add" and/or "git commit -a")
+To https://github.com/clw07/ml.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/clw07/ml.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+处理完成并已推送到GitHub，文件名为 免流.yaml
+Finished script at Tue Sep 17 15:26:22 CST 2024
