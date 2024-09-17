@@ -151,7 +151,7 @@ proxy-groups:
     use:
       - 国际
       - 木瓜
-    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余"
+    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
       
   - name: '国外自动'
     type: url-test
@@ -162,7 +162,7 @@ proxy-groups:
     lazy: true
     interval: 300
     tolerance: 35
-    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余"
+    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
     
       
   - name: 🛑 AdBlock
