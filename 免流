@@ -110,25 +110,33 @@ proxy-groups:
 
   - name: 国内
     type: select
-    <<: *use
+    use:
+      - 国际
+      - 木瓜
     filter: "(?i)CN|徐|武|济"
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Health.png"
 
   - name: 国内自动
     type: url-test
     <<: *p  # 引用 p 参数
-    <<: *use
+    use:
+      - 国际
+      - 木瓜
 
   - name: 国外
     type: select
-    <<: *use
+    use:
+      - 国际
+      - 木瓜
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
 
   - name: 国外自动
     type: url-test
     <<: *p  # 引用 p 参数
-    <<: *use
+    use:
+      - 国际
+      - 木瓜
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
 
   - name: 🛑 AdBlock
