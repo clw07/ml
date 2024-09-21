@@ -1,15 +1,30 @@
+p: &p
+  type: http
+  interval: 3600
+  health-check:
+    enable: true
+    url: 'http://g.alicdn.com'
+    interval: 300
+    timeout: 2000
+    tolerance: 30
+
+use: &use
+  type: select
+  use:
+    - 国际
+    - 木瓜
+
 mode: rule
 log-level: debug
 allow-lan: true
 mixed-port: 7890
 unified-delay: true
 find-process-mode: strict
-keep-alive-interval: 30
+keep-alive-interval: 1800
 geo-update-interval: 24
 geo-auto-update: false
-
 udp: true
-ipv6: true # 启用 IPv6 支持
+ipv6: true
 tcp-fast-open: true
 geodata-mode: true
 tcp-concurrent: true
@@ -20,18 +35,18 @@ profile:
   store-fake-ip: true
 tun:
   enable: true
-  stack: system 
-  auto-route: true 
+  stack: system
+  auto-route: true
   auto-redir: true
-  auto-detect-interface: true 
+  auto-detect-interface: true
+
 dns:
   enable: true
   listen: :1054
-  mtu : 9000
-  cache-size: 512  # 增加缓存大小
+  mtu: 9000
+  cache-size: 512
   espect-rules: true
   fake-ip-range: 198.18.0.1/16
-
   respect-rules: true
   enhanced-mode: redir-host
   fake-ip-filter:
@@ -39,33 +54,20 @@ dns:
     - "+.lan"
     - "+.local"
     - "+.market.xiaomi.com"
-  
   nameserver:
     - 142206.alidns.com
-   
-    - 119.29.29.29
     - 1.1.1.1
-    - 8.8.8.8
+    - 8.8.4.4
   proxy-server-nameserver:
     - 142206.alidns.com
-    
-    
-    - 119.29.29.29
     - 1.1.1.1
-    - 8.8.8.8
+    - 8.8.4.4
   nameserver-policy:
-   "geosite:cn":
+    "geosite:cn":
       - 142206.alidns.com
-      
-      
-      - 119.29.29.29
-      
-   "geosite:geolocation-!cn":
+    "geosite:geolocation-!cn":
       - 1.1.1.1
-      - 8.8.8.8
-      
-  
-  
+      - 8.8.4.4
 
 proxy-providers:
   国际:
@@ -74,108 +76,71 @@ proxy-providers:
     path: ./ProxyProviders/国际.yaml
     header:
       User-Agent:
-      - "Clash/v1.18.0"
-      - "mihomo/v1.18.5"
-      - "Clash.Meta/v2.10.2"
-    interval: 3600
-    health-check:
-      lazy: true
-      enable: true
-      url: http://g.alicdn.com/  # 使用免流 URL 进行健康检查
-      interval: 600
+        - "Clash/v1.18.0"
+        - "mihomo/v1.18.5"
+        - "Clash.Meta/v2.10.2"
+    <<: *p  # 引用 p 参数
   木瓜:
     type: http
     url: "https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
     path: ./ProxyProviders/木瓜.yaml
     header:
       User-Agent:
-      - "Clash/v1.18.0"
-      - "mihomo/v1.18.5"
-      - "Clash.Meta/v2.10.2"
-    interval: 3600
-    health-check:
-      lazy: true
-      enable: true
-      url: http://g.alicdn.com/  # 使用免流 URL 进行健康检查
-      interval: 600
-
-
-
-    
+        - "Clash/v1.18.0"
+        - "mihomo/v1.18.5"
+        - "Clash.Meta/v2.10.2"
+    <<: *p  # 引用 p 参数
 
 proxy-groups:
   - name: proxy
     type: select
-    url: 'http://g.alicdn.com/'
-    icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
     proxies:
       - 国外
       - 国外自动
-      
+    icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
+
   - name: domestic
     type: select
-    url: 'http://g.alicdn.com/'
-    icon: "https://raw.githubusercontent.com/NB921/picture/main/Sdxz.png"
     proxies:
       - 国内
       - 国内自动
       - proxy
       - DIRECT
-      
+    icon: "https://raw.githubusercontent.com/NB921/picture/main/Sdxz.png"
+
   - name: 国内
     type: select
-    url: 'http://g.alicdn.com/'
-    icon: "https://raw.githubusercontent.com/NB921/picture/main/Health.png"
-    use:
-      - 国际
-      - 木瓜
+    <<: *use
     filter: "(?i)CN|徐|武|济"
+    icon: "https://raw.githubusercontent.com/NB921/picture/main/Health.png"
 
-     
   - name: 国内自动
     type: url-test
-    use:
-      - 国际
-      - 木瓜
-    url: http://g.alicdn.com/  # 使用免流 URL 进行测速
-    lazy: true
-    interval: 300
-    icon: "https://raw.githubusercontent.com/NB921/picture/main/Sdxz.png"
-    tolerance: 35
-    filter: "(?i)CN|徐|武|济|州"
-    
-  
+    <<: *p  # 引用 p 参数
+    <<: *use
+
   - name: 国外
     type: select
-    url: 'http://g.alicdn.com/'
-    use:
-      - 国际
-      - 木瓜
+    <<: *use
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
-      
-  - name: '国外自动'
+    icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
+
+  - name: 国外自动
     type: url-test
-    use:
-      - 国际
-      - 木瓜
-    url: 'http://g.alicdn.com/'  # 使用免流 URL 进行测速
-    lazy: true
-    interval: 300
-    tolerance: 35
+    <<: *p  # 引用 p 参数
+    <<: *use
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
-    
-      
+
   - name: 🛑 AdBlock
     type: select
-    icon: "https://raw.githubusercontent.com/NB921/picture/main/Yu.png"
     proxies:
       - REJECT
       - PASS
       - 国外
+    icon: "https://raw.githubusercontent.com/NB921/picture/main/Yu.png"
 
 rules:
   - RULE-SET,anti-ad,🛑 AdBlock
-
   - DOMAIN,mcdn.bilivideo.cn,REJECT
   - DOMAIN,tracker.biliapi.net,REJECT
   - DOMAIN-SUFFIX,chat.bilibili.com,REJECT
@@ -189,53 +154,39 @@ rules:
   - DOMAIN,toblog.ctobsnssdk.com,REJECT
   - DOMAIN,api-access.pangolin-sdk-toutiao.com.cn,REJECT
   - DOMAIN,dig.zjurl.cn.cn,REJECT
-
   - DOMAIN-SUFFIX,.xn--ngstr-lra8j.com,proxy
   - DOMAIN-SUFFIX,.googleapis.cn,proxy
   - DOMAIN-SUFFIX,.dev,proxy
   - GEOSITE,youtube,proxy
-
   - GEOSITE,CN,domestic
   - GEOIP,CN,domestic
   - GEOSITE,category-ads-all,🛑 AdBlock
   - GEOSITE,category-httpdns,🛑 AdBlock
-  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,proxy
-  - DOMAIN-SUFFIX,services.googleapis.cn,proxy
-  
-  - DOMAIN-SUFFIX,xn--ngstr-cn-8za9o.com,proxy
-  - DOMAIN-SUFFIX,services.googleapis.cn,proxy
   - RULE-SET,秋风广告规则,🛑 AdBlock
   - RULE-SET,OpenAI,proxy
-  - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT # quic
- # - AND,((RULE-SET,anti-ad),(NOT,((RULE-SET,anti-AD-white)))),🛑 AdBlock
-  - DOMAIN-SUFFIX,o33249.ingest.sentry.io,🛑 AdBlock
-  - DOMAIN-SUFFIX,openaicom.imgix.net,🛑 AdBlock
-  
-
+  - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT
   - MATCH,proxy
 
 rule-providers:
- anti-ad:
+  anti-ad:
     type: http
     behavior: domain
     url: https://anti-ad.net/clash.yaml
     path: ./Rules/anti-ad
     interval: 60000
-  
- 秋风广告规则:
+
+  秋风广告规则:
     type: http
     behavior: domain
     format: yaml
     path: ./Rules/AWAvenue-Ads-Rule-Clash
-    #此处“/rule_providers”自行参考
-    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml"
+    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"
     interval: 60480
- OpenAI:
+
+  OpenAI:
     type: http
     behavior: classical
     format: yaml
     path: ./Rules/OpenAI
-    #此处“/rule_providers”自行参考
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"
     interval: 60480
-  
