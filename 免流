@@ -39,6 +39,9 @@ tun:
   auto-route: true
   auto-redir: true
   auto-detect-interface: true
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
 
 dns:
   enable: true
@@ -80,6 +83,7 @@ proxy-providers:
         - "mihomo/v1.18.5"
         - "Clash.Meta/v2.10.2"
     <<: *p  # 引用 p 参数
+    lazy: true
   木瓜:
     type: http
     url: "https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
@@ -90,6 +94,7 @@ proxy-providers:
         - "mihomo/v1.18.5"
         - "Clash.Meta/v2.10.2"
     <<: *p  # 引用 p 参数
+    lazy: true
 
 proxy-groups:
   - name: proxy
@@ -123,7 +128,7 @@ proxy-groups:
       - 国际
       - 木瓜
     filter: "(?i)CN|徐|武|济"
-
+    lazy: true
   - name: 国外
     type: select
     use:
@@ -139,7 +144,7 @@ proxy-groups:
       - 国际
       - 木瓜
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
-
+    lazy: true
   - name: 🛑 AdBlock
     type: select
     proxies:
