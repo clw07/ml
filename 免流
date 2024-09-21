@@ -122,6 +122,7 @@ proxy-groups:
     use:
       - 国际
       - 木瓜
+    filter: "(?i)CN|徐|武|济"
 
   - name: 国外
     type: select
