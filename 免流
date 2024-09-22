@@ -185,9 +185,8 @@ rules:
   - DOMAIN-SUFFIX,.dev,proxy
   - GEOSITE,youtube,proxy
   - OR,((GEOSITE,PRIVATE),(GEOIP,PRIVATE,NO-RESOLVE)),DIRECT
-  - AND,((DST-PORT,80/443),(NETWORK,TCP)),domestic
-  - AND,((NETWORK,UDP)),domestic
-  - AND,((DST-PORT,443),(NETWORK,UDP)),REJECT
+  
+ 
   - GEOSITE,CN,domestic
   - GEOIP,CN,domestic
   - GEOSITE,category-ads-all,🛑 AdBlock
