@@ -8,12 +8,6 @@ p: &p
     timeout: 2000
     tolerance: 30
 
-use: &use
-  type: select
-  use:
-    - 国际
-    - 木瓜
-
 mode: rule
 log-level: debug
 allow-lan: true
