@@ -3,7 +3,7 @@ p: &p
   interval: 3600
   health-check:
     enable: true
-    url: 'https://space.dingtalk.com'
+    url: 'http://g.alicdn.com'
     interval: 300
     timeout: 2000
     tolerance: 30
