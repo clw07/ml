@@ -48,9 +48,8 @@ dns:
   listen: :1054
   mtu: 9000
   cache-size: 512
-  espect-rules: true
+  respect-rules: true  # 已修正拼写
   fake-ip-range: 198.18.0.1/16
-  respect-rules: true
   enhanced-mode: redir-host
   fake-ip-filter:
     - "*"
