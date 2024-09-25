@@ -57,20 +57,20 @@ dns:
     - "+.lan"
     - "+.local"
     - "+.market.xiaomi.com"
-  nameserver:
-    - https://142206.alidns.com/dns-query
-    - https://cloudflare-dns.com/dns-query
-    - https://dns.google/dns-query
+    nameserver:
+    - 142206.alidns.com
+    - 1.1.1.1
+    - 8.8.4.4
   proxy-server-nameserver:
-    - https://142206.alidns.com/dns-query
-    - https://cloudflare-dns.com/dns-query
-    - https://dns.google/dns-query
+    - 142206.alidns.com
+    - 1.1.1.1
+    - 8.8.4.4
   nameserver-policy:
     "geosite:cn":
-      - https://142206.alidns.com/dns-query
+      - 142206.alidns.com
     "geosite:geolocation-!cn":
-      - https://cloudflare-dns.com/dns-query
-      - https://dns.google/dns-query
+      - 1.1.1.1
+      - 8.8.4.4
 
 proxy-providers:
   国际:
