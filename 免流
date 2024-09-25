@@ -57,7 +57,7 @@ dns:
     - "+.lan"
     - "+.local"
     - "+.market.xiaomi.com"
-    nameserver:
+  nameserver:
     - 142206.alidns.com
     - 1.1.1.1
     - 8.8.4.4
