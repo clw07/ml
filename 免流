@@ -75,8 +75,10 @@ proxy-providers:
         - "Clash/v1.18.0"
         - "mihomo/v1.18.5"
         - "Clash.Meta/v2.10.2"
+        - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36"  # 添加新的 User-Agent
     <<: *p  # 引用 p 参数
     lazy: true
+    timeout: 5000  # 设置为 5 秒
   木瓜:
     type: http
     url: "https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
@@ -86,8 +88,10 @@ proxy-providers:
         - "Clash/v1.18.0"
         - "mihomo/v1.18.5"
         - "Clash.Meta/v2.10.2"
+        - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36"  # 添加新的 User-Agent
     <<: *p  # 引用 p 参数
     lazy: true
+    timeout: 5000  # 设置为 5 秒
 
 proxy-groups:
   - name: proxy
