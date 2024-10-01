@@ -136,7 +136,7 @@ proxy-groups:
 
   - name: 国外
     type: select
-    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
+    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|江"
     use:
 
       - 国际
@@ -145,7 +145,7 @@ proxy-groups:
 
   - name: 国外自动
     type: url-test
-    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
+    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|江"
     <<: *p  # 引用 p 参数
     use:
 
