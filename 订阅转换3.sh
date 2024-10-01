@@ -1,5 +1,18 @@
 #!/bin/bash
+# 自动处理未暂存的更改
+if [[ -n $(git status --porcelain) ]]; then
+    echo "存在未暂存的更改，自动提交..."
+    git add .
+    git commit -m "自动提交未暂存的更改"
+fi
 
+# 自动处理未跟踪的文件
+untracked_files=$(git ls-files --others --exclude-standard)
+if [[ -n $untracked_files ]]; then
+    echo "检测到未跟踪的文件，自动添加到 Git..."
+    git add .
+    git commit -m "自动添加未跟踪的文件"
+fi
 # 定义变量
 subscribe_links=(
     "https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"

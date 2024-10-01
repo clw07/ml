@@ -1,5 +1,18 @@
 #!/bin/bash
+# 自动处理未暂存的更改
+if [[ -n $(git status --porcelain) ]]; then
+    echo "存在未暂存的更改，自动提交..."
+    git add .
+    git commit -m "自动提交未暂存的更改"
+fi
 
+# 自动处理未跟踪的文件
+untracked_files=$(git ls-files --others --exclude-standard)
+if [[ -n $untracked_files ]]; then
+    echo "检测到未跟踪的文件，自动添加到 Git..."
+    git add .
+    git commit -m "自动添加未跟踪的文件"
+fi
 # 定义变量
 subscribe_links=(
     "https://gawrgura.moe/api/v1/client/subscribe?token=e26587818a001c80ba5eed92c3007d9e"
@@ -65,10 +78,10 @@ file_name="国际.yaml"  # 最终输出文件名
 
 # 切换到仓库目录并自动推送到GitHub
 cd "$repo_dir"
-
+git pull origin main
 git add "$file_name"
 git commit -m "Auto update subscription file"
-git pull origin main
+
 git push origin main
 
 echo "处理完成并已推送到GitHub，文件名为 $file_name"
