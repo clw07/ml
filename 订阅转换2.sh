@@ -16,13 +16,12 @@ fi
 
 # 定义变量
 subscribe_links=(
-     "https://proxyinfo.net/api/v1/client/subscribe?token=1327869edc6c0bd6802060e4e1b67be5"
-
+    "https://gawrgura.moe/api/v1/client/subscribe?token=e26587818a001c80ba5eed92c3007d9e"
 )  # 添加多个订阅链接
 new_host="space.dingtalk.com"
 replace_prefix="免"
 repo_dir="/data/data/com.termux/files/home/ml"  # Git仓库本地路径
-file_name="性价比.yaml"  # 最终输出文件名
+file_name="国际.yaml"  # 最终输出文件名
 
 # 开始生成 YAML 文件并添加 "proxies:" 行
 {
@@ -55,20 +54,21 @@ file_name="性价比.yaml"  # 最终输出文件名
 
               if [[ "$net_value" == "ws" ]]; then
                   new_ps="$replace_prefix | $ps_value"
-                  network_opts="ws-opts: { path: $ws_path, headers: { Host: $new_host } }, ws-path: $ws_path, ws-headers: { Host: $new_host }"
+                  network_opts="\"ws-opts\": { \"path\": \"$ws_path\", \"headers\": { \"Host\": \"$new_host\" } }"
               elif [[ "$net_value" == "tcp" && "$type_value" == "http" ]]; then
                   new_ps="$replace_prefix | $ps_value"
-                  network_opts="http-opts: { path: [/], method: GET, headers: { Connection: [keep-alive], Host: [$new_host] } }"
+                  # 去掉 method: GET，和第一个配置保持一致
+                  network_opts="\"http-opts\": { \"path\": [\"/\"], \"headers\": { \"Connection\": [\"keep-alive\"], \"Host\": [\"$new_host\"] } }"
               else
                   new_ps="$replace_prefix | $ps_value"
                   network_opts=""
               fi
 
-              # 输出到文件，处理TCP节点的特定格式
+              # 输出到文件，去掉多余的 | tcp
               if [[ "$net_value" == "tcp" ]]; then
-                  echo "  - { name: '$new_ps | tcp', type: vmess, server: $server, port: $port, uuid: $uuid, alterId: $alterId, cipher: $cipher, udp: true, network: http, $network_opts }"
+                  echo "  - { \"name\": \"$new_ps | tcp\", \"type\": \"vmess\", \"server\": \"$server\", \"port\": $port, \"uuid\": \"$uuid\", \"alterId\": $alterId, \"cipher\": \"$cipher\", \"udp\": true, \"network\": \"http\", $network_opts, \"servername\": \"$new_host\" }"
               else
-                  echo "  - { name: '$new_ps', type: vmess, server: $server, port: $port, uuid: $uuid, alterId: $alterId, cipher: $cipher, udp: true, network: $net_value, $network_opts }"
+                  echo "  - { \"name\": \"$new_ps\", \"type\": \"vmess\", \"server\": \"$server\", \"port\": $port, \"uuid\": \"$uuid\", \"alterId\": $alterId, \"cipher\": \"$cipher\", \"udp\": true, \"network\": \"$net_value\", $network_opts, \"servername\": \"$new_host\" }"
               fi
           fi
       done < decoded_file

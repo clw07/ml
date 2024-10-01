@@ -13,10 +13,10 @@ if [[ -n $untracked_files ]]; then
     git add .
     git commit -m "自动添加未跟踪的文件"
 fi
+
 # 定义变量
 subscribe_links=(
-    "https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
-
+        "https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
 )  # 添加多个订阅链接
 new_host="space.dingtalk.com"
 replace_prefix="免"
@@ -54,20 +54,21 @@ file_name="木瓜云.yaml"  # 最终输出文件名
 
               if [[ "$net_value" == "ws" ]]; then
                   new_ps="$replace_prefix | $ps_value"
-                  network_opts="ws-opts: { path: $ws_path, headers: { Host: $new_host } }, ws-path: $ws_path, ws-headers: { Host: $new_host }"
+                  network_opts="\"ws-opts\": { \"path\": \"$ws_path\", \"headers\": { \"Host\": \"$new_host\" } }"
               elif [[ "$net_value" == "tcp" && "$type_value" == "http" ]]; then
                   new_ps="$replace_prefix | $ps_value"
-                  network_opts="http-opts: { path: [/], method: GET, headers: { Connection: [keep-alive], Host: [$new_host] } }"
+                  # 去掉 method: GET，和第一个配置保持一致
+                  network_opts="\"http-opts\": { \"path\": [\"/\"], \"headers\": { \"Connection\": [\"keep-alive\"], \"Host\": [\"$new_host\"] } }"
               else
                   new_ps="$replace_prefix | $ps_value"
                   network_opts=""
               fi
 
-              # 输出到文件，处理TCP节点的特定格式
+              # 输出到文件，去掉多余的 | tcp
               if [[ "$net_value" == "tcp" ]]; then
-                  echo "  - { name: '$new_ps | tcp', type: vmess, server: $server, port: $port, uuid: $uuid, alterId: $alterId, cipher: $cipher, udp: true, network: http, $network_opts }"
+                  echo "  - { \"name\": \"$new_ps | tcp\", \"type\": \"vmess\", \"server\": \"$server\", \"port\": $port, \"uuid\": \"$uuid\", \"alterId\": $alterId, \"cipher\": \"$cipher\", \"udp\": true, \"network\": \"http\", $network_opts, \"servername\": \"$new_host\" }"
               else
-                  echo "  - { name: '$new_ps', type: vmess, server: $server, port: $port, uuid: $uuid, alterId: $alterId, cipher: $cipher, udp: true, network: $net_value, $network_opts }"
+                  echo "  - { \"name\": \"$new_ps\", \"type\": \"vmess\", \"server\": \"$server\", \"port\": $port, \"uuid\": \"$uuid\", \"alterId\": $alterId, \"cipher\": \"$cipher\", \"udp\": true, \"network\": \"$net_value\", $network_opts, \"servername\": \"$new_host\" }"
               fi
           fi
       done < decoded_file
@@ -77,11 +78,16 @@ file_name="木瓜云.yaml"  # 最终输出文件名
   done
 } > "$repo_dir/$file_name"  # 确保整个内容输出到文件中
 
-# 切换到仓库目录并自动推送到GitHub
+# 切换到仓库目录并推送到 GitHub
 cd "$repo_dir"
+
+
+echo "正在从 GitHub 拉取最新的更改..."
+git pull origin main
+
+echo "正在推送更新..."
 git add "$file_name"
 git commit -m "Auto update subscription file"
-git pull origin main
 git push origin main
 
 echo "处理完成并已推送到GitHub，文件名为 $file_name"
