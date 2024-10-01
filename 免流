@@ -115,7 +115,7 @@ proxy-groups:
     use:
       - 国际
       - 木瓜
-    filter: "(?i)CN|徐|武|济"
+    filter: "(?i)CN|徐|武|济|镇"
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Health.png"
 
   - name: 国内自动
@@ -124,14 +124,14 @@ proxy-groups:
     use:
       - 国际
       - 木瓜
-    filter: "(?i)CN|徐|武|济"
+    filter: "(?i)CN|徐|武|济|镇"
     lazy: true
   - name: 国外
     type: select
     use:
       - 国际
       - 木瓜
-    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
+    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇"
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
 
   - name: 国外自动
@@ -140,7 +140,7 @@ proxy-groups:
     use:
       - 国际
       - 木瓜
-    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
+    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇"
     lazy: true
   - name: 🛑 AdBlock
     type: select
