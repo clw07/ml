@@ -1,0 +1,217 @@
+p: &p
+  type: http
+  interval: 3600
+  health-check:
+    enable: true
+    url: 'https://www.gstatic.com/generate_204'
+    interval: 300
+    timeout: 2000
+    tolerance: 30
+
+mode: rule
+log-level: debug
+allow-lan: true
+mixed-port: 7890
+unified-delay: true
+find-process-mode: strict
+keep-alive-interval: 15
+geo-update-interval: 24
+geo-auto-update: false
+udp: true
+ipv6: true
+tcp-fast-open: true
+geodata-mode: true
+tcp-concurrent: true
+geodata-loader: standard
+global-client-fingerprint: android
+profile:
+  store-selected: true
+  store-fake-ip: true
+tun:
+  enable: true
+  stack: system
+  auto-route: true
+  auto-redir: true
+  auto-detect-interface: true 
+  dns-hijack: 
+    - "any:53" 
+    - "tcp://any:53"
+
+sniffer:
+
+  enable: true
+
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:
+    - "Mijia Cloud"
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  default-nameserver:
+    - 180.184.1.1
+    - 180.76.76.76
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*.lan'
+    - '+.local'
+  nameserver:
+    - 'https://doh.pub/dns-query'
+    - 'https://dns.alidns.com/dns-query'
+  fallback:
+    - 'https://dns.google/dns-query'
+    - 'https://dns.cloudflare.com/dns-query'
+  proxy-server-nameserver:
+    - 'https://doh.apad.pro/dns-query'
+    - 'https://dns-cdn.trli.club/doh/dns'
+  nameserver-policy:
+    "geosite:cn,private":
+      - 'https://dns.alidns.com/dns-query'
+      - 'https://doh.pub/dns-query'
+    "geosite:geolocation-!cn":
+      - 'https://dns.cloudflare.com/dns-query'
+      - 'https://dns.google/dns-query'
+  fallback-filter:
+    geoip: true
+    geoip-code: cn
+    geosite:
+      - gfw
+    ipcidr:
+      - 240.0.0.0/4
+    domain:
+      - '+.pixiv.net'
+      - '+.github.com'
+      - '+.google.com'
+      - '+.twitter.com'
+      - '+.telegram.org'
+
+proxy-providers:
+
+  性价比:
+    type: http
+    url: "https://proxyinfo.net/api/v1/client/subscribe?token=1327869edc6c0bd6802060e4e1b67be5"
+    path: ./ProxyProviders/性价比.yaml
+    header:
+      User-Agent:
+        - "Clash/v1.18.0"
+        - "mihomo/v1.18.5"
+        - "Clash.Meta/v2.10.2"
+        - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36"  # 添加新的 User-Agent
+    <<: *p  # 引用 p 参数
+    lazy: true
+    timeout: 5000  # 设置为 5 秒
+
+  国际:
+    type: http
+    url: "https://gawrgura.moe/api/v1/client/subscribe?token=e26587818a001c80ba5eed92c3007d9e"
+    path: ./ProxyProviders/国际.yaml
+    header:
+      User-Agent:
+        - "Clash/v1.18.0"
+        - "mihomo/v1.18.5"
+        - "Clash.Meta/v2.10.2"
+        - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36"  # 添加新的 User-Agent
+    <<: *p  # 引用 p 参数
+    lazy: true
+    timeout: 5000  # 设置为 5 秒
+
+
+proxy-groups:
+  - name: proxy
+    type: select
+    proxies:
+      - 国外
+      - 国外自动
+    icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
+
+
+  - name: 国外
+    type: select
+    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
+    use:
+
+      - 国际
+      - 性价比
+    icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
+
+  - name: 国外自动
+    type: url-test
+    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg"
+    <<: *p  # 引用 p 参数
+    use:
+
+      - 国际
+      - 性价比
+    lazy: true
+  - name: 🛑 AdBlock
+    type: select
+    proxies:
+      - REJECT
+
+      - 国外
+    icon: "https://raw.githubusercontent.com/NB921/picture/main/Yu.png"
+
+rules:
+  - RULE-SET,anti-ad,🛑 AdBlock
+  - DOMAIN,mcdn.bilivideo.cn,REJECT
+  - DOMAIN,tracker.biliapi.net,REJECT
+  - DOMAIN-SUFFIX,chat.bilibili.com,REJECT
+  - DOMAIN-SUFFIX,szbdyd.com,REJECT
+  - DOMAIN,dig.bdurl.net,REJECT
+  - DOMAIN,g.cn.miaozhen.com,REJECT
+  - DOMAIN,im-x.jd.com,REJECT
+  - DOMAIN,ads3-normal-lq.zijieapi.com,REJECT
+  - DOMAIN,log-api.pangolin-sdk-toutiao-b.com,REJECT
+  - DOMAIN,tobapplog.ctobsnssdk.com,REJECT
+  - DOMAIN,toblog.ctobsnssdk.com,REJECT
+  - DOMAIN,api-access.pangolin-sdk-toutiao.com.cn,REJECT
+  - DOMAIN,dig.zjurl.cn.cn,REJECT
+  - DOMAIN-SUFFIX,.xn--ngstr-lra8j.com,proxy
+  - DOMAIN-SUFFIX,.googleapis.cn,proxy
+  - DOMAIN-SUFFIX,.dev,proxy
+  - GEOSITE,youtube,proxy
+  - OR,((GEOSITE,PRIVATE),(GEOIP,PRIVATE,NO-RESOLVE)),DIRECT
+
+
+  - GEOSITE,CN,DIRECT
+  - GEOIP,CN,DIRECT
+  - GEOSITE,category-ads-all,🛑 AdBlock
+  - GEOSITE,category-httpdns,🛑 AdBlock
+  - RULE-SET,秋风广告规则,🛑 AdBlock
+  - RULE-SET,OpenAI,proxy
+  - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT
+  - MATCH,proxy
+  - MATCH,REJECT
+
+rule-providers:
+  anti-ad:
+    type: http
+    behavior: domain
+    url: https://anti-ad.net/clash.yaml
+    path: ./Rules/anti-ad
+    interval: 60000
+
+  秋风广告规则:
+    type: http
+    behavior: domain
+    format: yaml
+    path: ./Rules/AWAvenue-Ads-Rule-Clash
+    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"
+    interval: 60480
+
+  OpenAI:
+    type: http
+    behavior: classical
+    format: yaml
+    path: ./Rules/OpenAI
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"
+    interval: 60480
