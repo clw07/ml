@@ -184,29 +184,16 @@ rules:
 
   - GEOSITE,CN,DIRECT
   - GEOIP,CN,DIRECT
-  - GEOSITE,category-ads-all,🛑 AdBlock
-  - GEOSITE,category-httpdns,🛑 AdBlock
-  - RULE-SET,秋风广告规则,🛑 AdBlock
+  - GEOSITE,category-ads-all,REJECT
+  - GEOSITE,category-httpdns,REJECT
+ 
   - RULE-SET,OpenAI,proxy
   - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT
   - MATCH,proxy
   - MATCH,REJECT
 
 rule-providers:
-  anti-ad:
-    type: http
-    behavior: domain
-    url: https://anti-ad.net/clash.yaml
-    path: ./Rules/anti-ad
-    interval: 60000
-
-  秋风广告规则:
-    type: http
-    behavior: domain
-    format: yaml
-    path: ./Rules/AWAvenue-Ads-Rule-Clash
-    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"
-    interval: 60480
+  
 
   OpenAI:
     type: http
