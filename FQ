@@ -161,7 +161,7 @@ proxy-groups:
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Yu.png"
 
 rules:
-  - RULE-SET,anti-ad,🛑 AdBlock
+  
   - DOMAIN,mcdn.bilivideo.cn,REJECT
   - DOMAIN,tracker.biliapi.net,REJECT
   - DOMAIN-SUFFIX,chat.bilibili.com,REJECT
