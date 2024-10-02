@@ -164,10 +164,10 @@ rules:
   - GEOSITE,CN,domestic
   - GEOIP,CN,domestic
   - GEOSITE,category-ads-all,🛑 AdBlock
-  
+  - RULE-SET,steam,proxy
   - RULE-SET,秋风广告规则,🛑 AdBlock
   - RULE-SET,OpenAI,proxy
-  - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT
+  
   - MATCH,proxy
   - MATCH,REJECT
 
@@ -193,4 +193,12 @@ rule-providers:
     format: yaml
     path: ./Rules/OpenAI
     url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"
+
     interval: 60480
+  steam: 
+     type: http 
+     url: 
+"https://raw.gi thubusercontent.com/Dreamacro/clash -rules/master/providers/steam.yaml" 
+     path: ./Rules/steam.yaml          
+
+     interval:86400
