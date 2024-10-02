@@ -164,7 +164,7 @@ rules:
   - GEOSITE,CN,domestic
   - GEOIP,CN,domestic
   - GEOSITE,category-ads-all,🛑 AdBlock
-  - RULE-SET,steam,proxy
+  
   - RULE-SET,秋风广告规则,🛑 AdBlock
   - RULE-SET,OpenAI,proxy
   
