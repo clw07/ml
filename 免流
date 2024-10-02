@@ -197,8 +197,8 @@ rule-providers:
     interval: 60480
   steam: 
      type: http 
-     url: 
-"https://raw.gi thubusercontent.com/Dreamacro/clash -rules/master/providers/steam.yaml" 
-     path: ./Rules/steam.yaml          
+     url:
+"https://raw.githubusercontent.com/Dreamacro/clash-rules/master/providers/steam.yaml" 
+     path: ./Rules/steam       
 
      interval:86400
