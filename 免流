@@ -66,10 +66,10 @@ dns:
       - 8.8.4.4
 
 proxy-providers:
-  国际:
+  免流:
     type: http
     url: "https://raw.githubusercontent.com/clw07/ml/main/免流.yaml"
-    path: ./ProxyProviders/国际.yaml
+    path: ./ProxyProviders/免流.yaml
     header:
       User-Agent:
         - "Clash/v1.18.0"
@@ -77,21 +77,9 @@ proxy-providers:
         - "Clash.Meta/v2.10.2"
         - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36"  # 添加新的 User-Agent
     <<: *p  # 引用 p 参数
-    lazy: true
+    lazy: false
     timeout: 5000  # 设置为 5 秒
-  木瓜:
-    type: http
-    url: "https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
-    path: ./ProxyProviders/木瓜.yaml
-    header:
-      User-Agent:
-        - "Clash/v1.18.0"
-        - "mihomo/v1.18.5"
-        - "Clash.Meta/v2.10.2"
-        - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36"  # 添加新的 User-Agent
-    <<: *p  # 引用 p 参数
-    lazy: true
-    timeout: 5000  # 设置为 5 秒
+  
 
 proxy-groups:
   - name: proxy
@@ -113,8 +101,7 @@ proxy-groups:
   - name: 国内
     type: select
     use:
-      - 国际
-      - 木瓜
+      - 免流 
     filter: "(?i)CN|徐|武|济|镇"
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Health.png"
 
@@ -122,15 +109,15 @@ proxy-groups:
     type: url-test
     <<: *p  # 引用 p 参数
     use:
-      - 国际
-      - 木瓜
+      - 免流 
+      
     filter: "(?i)CN|徐|武|济|镇"
     lazy: true
   - name: 国外
     type: select
     use:
-      - 国际
-      - 木瓜
+      - 免流 
+      
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇"
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
 
@@ -138,8 +125,8 @@ proxy-groups:
     type: url-test
     <<: *p  # 引用 p 参数
     use:
-      - 国际
-      - 木瓜
+      - 免流 
+      
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇"
     lazy: true
   - name: 🛑 AdBlock
@@ -175,7 +162,7 @@ rules:
   - GEOSITE,CN,domestic
   - GEOIP,CN,domestic
   - GEOSITE,category-ads-all,🛑 AdBlock
-  - GEOSITE,category-httpdns,🛑 AdBlock
+  
   - RULE-SET,秋风广告规则,🛑 AdBlock
   - RULE-SET,OpenAI,proxy
   - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT
