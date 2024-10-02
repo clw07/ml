@@ -104,6 +104,7 @@ proxy-groups:
       - 免流 
     filter: "(?i)CN|徐|武|济|镇"
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Health.png"
+    lazy: false
 
   - name: 国内自动
     type: url-test
@@ -112,13 +113,14 @@ proxy-groups:
       - 免流 
       
     filter: "(?i)CN|徐|武|济|镇"
-    lazy: true
+    lazy: false
   - name: 国外
     type: select
     use:
       - 免流 
       
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇"
+    lazy: false
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
 
   - name: 国外自动
@@ -128,12 +130,12 @@ proxy-groups:
       - 免流 
       
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇"
-    lazy: true
+    lazy: false
   - name: 🛑 AdBlock
     type: select
     proxies:
       - REJECT
-      - PASS
+      
       - 国外
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Yu.png"
 
