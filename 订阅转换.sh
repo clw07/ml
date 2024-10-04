@@ -18,7 +18,7 @@ fi
 subscribe_links=(
     "https://gawrgura.moe/api/v1/client/subscribe?token=e26587818a001c80ba5eed92c3007d9e"
     "https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
-"https://proxyinfo.net/api/v1/client/subscribe?token=1327869edc6c0bd6802060e4e1b67be5"
+    "https://proxyinfo.net/api/v1/client/subscribe?token=1327869edc6c0bd6802060e4e1b67be5"
 )  # 添加多个订阅链接
 new_host="space.dingtalk.com"
 replace_prefix="免"
@@ -39,7 +39,26 @@ file_name="免流.yaml"  # 最终输出文件名
 
       # 读取文件逐行处理
       while IFS= read -r line; do
-          if [[ $line == vmess://* ]]; then
+          # 处理 VLESS
+          if [[ $line == vless://* ]]; then
+              encoded_vless=${line#vless://}  # 去掉开头的"vless://"
+              json_str=$(echo "$encoded_vless" | base64 -d)  # base64解密
+
+              server=$(echo "$json_str" | jq -r '.add')
+              port=$(echo "$json_str" | jq -r '.port')
+              uuid=$(echo "$json_str" | jq -r '.id')
+              net_value=$(echo "$json_str" | jq -r '.net')
+              ws_path=$(echo "$json_str" | jq -r '.path // "/"')
+              ps_value=$(echo "$json_str" | jq -r '.ps // "Unnamed"')
+              host=$(echo "$json_str" | jq -r '.host // ""')
+
+              new_ps="$replace_prefix | $ps_value"
+              network_opts="\"ws-opts\": { \"path\": \"$ws_path\", \"headers\": { \"Host\": \"$new_host\" } }"
+
+              echo "  - { \"name\": \"$new_ps\", \"type\": \"vless\", \"server\": \"$server\", \"port\": $port, \"uuid\": \"$uuid\", \"udp\": true, \"network\": \"$net_value\", $network_opts, \"servername\": \"$new_host\" }"
+
+          # 处理 VMESS
+          elif [[ $line == vmess://* ]]; then
               encoded_vmess=${line#vmess://}  # 去掉开头的"vmess://"
               json_str=$(echo "$encoded_vmess" | base64 -d)  # base64解密
 
@@ -59,14 +78,12 @@ file_name="免流.yaml"  # 最终输出文件名
                   network_opts="\"ws-opts\": { \"path\": \"$ws_path\", \"headers\": { \"Host\": \"$new_host\" } }"
               elif [[ "$net_value" == "tcp" && "$type_value" == "http" ]]; then
                   new_ps="$replace_prefix | $ps_value"
-                  # 去掉 method: GET，和第一个配置保持一致
                   network_opts="\"http-opts\": { \"path\": [\"/\"], \"headers\": { \"Connection\": [\"keep-alive\"], \"Host\": [\"$new_host\"] } }"
               else
                   new_ps="$replace_prefix | $ps_value"
                   network_opts=""
               fi
 
-              # 输出到文件，去掉多余的 | tcp
               if [[ "$net_value" == "tcp" ]]; then
                   echo "  - { \"name\": \"$new_ps | tcp\", \"type\": \"vmess\", \"server\": \"$server\", \"port\": $port, \"uuid\": \"$uuid\", \"alterId\": $alterId, \"cipher\": \"$cipher\", \"udp\": true, \"network\": \"http\", $network_opts, \"servername\": \"$new_host\" }"
               else
@@ -82,7 +99,6 @@ file_name="免流.yaml"  # 最终输出文件名
 
 # 切换到仓库目录并推送到 GitHub
 cd "$repo_dir"
-
 
 echo "正在从 GitHub 拉取最新的更改..."
 git pull origin main
