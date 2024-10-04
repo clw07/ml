@@ -39,26 +39,12 @@ file_name="免流.yaml"  # 最终输出文件名
 
       # 读取文件逐行处理
       while IFS= read -r line; do
-          # 处理 VLESS
+          # 跳过 VLESS 节点
           if [[ $line == vless://* ]]; then
-              encoded_vless=${line#vless://}  # 去掉开头的"vless://"
-              json_str=$(echo "$encoded_vless" | base64 -d)  # base64解密
+              continue
+          fi
 
-              server=$(echo "$json_str" | jq -r '.add')
-              port=$(echo "$json_str" | jq -r '.port')
-              uuid=$(echo "$json_str" | jq -r '.id')
-              net_value=$(echo "$json_str" | jq -r '.net')
-              ws_path=$(echo "$json_str" | jq -r '.path // "/"')
-              ps_value=$(echo "$json_str" | jq -r '.ps // "Unnamed"')
-              host=$(echo "$json_str" | jq -r '.host // ""')
-
-              new_ps="$replace_prefix | $ps_value"
-              network_opts="\"ws-opts\": { \"path\": \"$ws_path\", \"headers\": { \"Host\": \"$new_host\" } }"
-
-              echo "  - { \"name\": \"$new_ps\", \"type\": \"vless\", \"server\": \"$server\", \"port\": $port, \"uuid\": \"$uuid\", \"udp\": true, \"network\": \"$net_value\", $network_opts, \"servername\": \"$new_host\" }"
-
-          # 处理 VMESS
-          elif [[ $line == vmess://* ]]; then
+          if [[ $line == vmess://* ]]; then
               encoded_vmess=${line#vmess://}  # 去掉开头的"vmess://"
               json_str=$(echo "$encoded_vmess" | base64 -d)  # base64解密
 
@@ -84,6 +70,7 @@ file_name="免流.yaml"  # 最终输出文件名
                   network_opts=""
               fi
 
+              # 输出到文件，去掉多余的 | tcp
               if [[ "$net_value" == "tcp" ]]; then
                   echo "  - { \"name\": \"$new_ps | tcp\", \"type\": \"vmess\", \"server\": \"$server\", \"port\": $port, \"uuid\": \"$uuid\", \"alterId\": $alterId, \"cipher\": \"$cipher\", \"udp\": true, \"network\": \"http\", $network_opts, \"servername\": \"$new_host\" }"
               else
