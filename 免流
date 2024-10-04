@@ -52,15 +52,18 @@ dns:
     - "+.market.xiaomi.com"
   nameserver:
     - 142206.alidns.com
-   
+    - 1.1.1.1
+    - 8.8.4.4
   proxy-server-nameserver:
     - 142206.alidns.com
-   
+    - 1.1.1.1
+    - 8.8.4.4
   nameserver-policy:
     "geosite:cn":
       - 142206.alidns.com
     "geosite:geolocation-!cn":
-      - 142206.alidns.com
+      - 1.1.1.1
+      - 8.8.4.4
 
 proxy-providers:
   免流:
