@@ -84,6 +84,19 @@ proxy-providers:
     <<: *p  # 引用 p 参数
     lazy: false
     timeout: 5000  # 设置为 5 秒
+  性价比:
+    type: http
+    url: "https://proxyinfo.net/api/v1/client/subscribe?token=1327869edc6c0bd6802060e4e1b67be5"
+    path: ./ProxyProviders/性价比.yaml
+    header:
+      User-Agent:
+        - "Clash/v1.18.0"
+        - "mihomo/v1.18.5"
+        - "Clash.Meta/v2.10.2"
+        - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36"  # 添加新的 User-Agent
+    <<: *p  # 引用 p 参数
+    lazy: false
+    timeout: 5000  # 设置为 5 秒
   
 
 proxy-groups:
@@ -107,6 +120,7 @@ proxy-groups:
     type: select
     use:
       - 免流 
+      
     filter: "(?i)CN|徐|武|济|镇"
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Health.png"
     lazy: false
@@ -123,7 +137,7 @@ proxy-groups:
     type: select
     use:
       - 免流 
-      
+      - 性价比
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇"
     lazy: false
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
@@ -133,7 +147,7 @@ proxy-groups:
     <<: *p  # 引用 p 参数
     use:
       - 免流 
-      
+      - 性价比
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇"
     lazy: false
   - name: 🛑 AdBlock
