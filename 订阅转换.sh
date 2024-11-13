@@ -16,7 +16,7 @@ fi
 
 # 定义变量
 subscribe_links=(
-    "https://gawrgura.moe/api/v1/client/subscribe?token=e26587818a001c80ba5eed92c3007d9e"
+    "https://carpetpacific.com/blanket/api/v1/client/subscribe?token=88c19ebe93a5c5d7eeeb0417aac3d12a"
     #"https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
    
 )  # 添加多个订阅链接
