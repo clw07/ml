@@ -1,5 +1,5 @@
-
 #!/bin/bash
+
 # 自动处理未暂存的更改
 if [[ -n $(git status --porcelain) ]]; then
     echo "存在未暂存的更改，自动提交..."
@@ -29,7 +29,7 @@ file_name="免流.yaml"  # 最终输出文件名
   echo "proxies:"
 
   # 手动添加单个 VMess 节点
-  single_node="vmess://eyJhZGQiOiIxMTMuNDQuMTU4LjE2MyIsImFpZCI6IjAiLCJhbHBuIjoiIiwiZnAiOiIiLCJob3N0Ijoic3BhY2UuZGluZ3RhbGsuY29tIiwiaWQiOiJmZTM0ZjhjNy0yMTg1LTQzZGEtZDU3YS1jMjZjOTMxNzQ1YWIiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiLyIsInBvcnQiOiI4ODg4IiwicHMiOiLljJfkuqwzbSIsInNjeSI6ImF1dG8iLCJzbmkiOiIiLCJ0bHMiOiIiLCJ0eXBlIjoiaHR0cCIsInYiOiIyIn0="
+  single_node="vmess://eyJhZGQiOiIxMTMuNDQuMTU4LjE2MyIsImFpZCI6IjAiLCJhbHBuIjoiIiwiZnAiOiIiLCJob3N0Ijoic3BhY2UuZGluZ3RhbGsuY29tIiwiaWQiOiJmZTM0ZjhjNy0yMTg1LTQzZGEtZDU3YS1jMjZjOTMxNzQ1YWIiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiLyIsInBvcnQiOiI4ODg4IiwicHMiOiJtbCIsInNjeSI6ImF1dG8iLCJzbmkiOiIiLCJ0bHMiOiIiLCJ0eXBlIjoiaHR0cCIsInYiOiIyIn0="
   encoded_vmess=${single_node#vmess://}  # 去掉开头的"vmess://"
   json_str=$(echo "$encoded_vmess" | base64 -d)  # base64解密
 
@@ -79,17 +79,7 @@ git add "$file_name"
 git commit -m "更新 $file_name 文件"
 git push origin main
 
-脚本功能：
-
-1. 解析单个 VMess 节点：通过 Base64 解码获取 JSON 信息并解析每个字段。
-
-
-2. 生成 YAML 格式：支持 ws 或 http 等网络类型。
-
-
-3. Git 自动提交：将生成的 YAML 文件推送到指定仓库。
-
-
-
-运行脚本后，生成的 免流.yaml 文件会自动推送到你的 GitHub 仓库。
-
+# 脚本功能：
+# 1. 解析单个 VMess 节点：通过 Base64 解码获取 JSON 信息并解析每个字段。
+# 2. 生成 YAML 格式：支持 ws 或 http 等网络类型。
+# 3. Git 自动提交：将生成的 YAML 文件推送到指定仓库。
