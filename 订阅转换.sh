@@ -51,23 +51,40 @@ parse_and_add_node() {
         new_ps="$replace_prefix | $ps_value"
         network_opts="\"http-opts\": { \"path\": [\"/\"], \"headers\": { \"Connection\": [\"keep-alive\"], \"Host\": [\"$new_host\"] } }"
     else
+        new_ps="$replace_prefix | $ps_value"
         network_opts=""
     fi
 
-    # 输出到 YAML 文件
-    echo "- name: \"$new_ps\"" >> "$repo_dir/$file_name"
-    echo "  type: vmess" >> "$repo_dir/$file_name"
-    echo "  server: \"$server\"" >> "$repo_dir/$file_name"
-    echo "  port: $port" >> "$repo_dir/$file_name"
-    echo "  uuid: \"$uuid\"" >> "$repo_dir/$file_name"
-    echo "  alterId: $alterId" >> "$repo_dir/$file_name"
-    echo "  cipher: \"$cipher\"" >> "$repo_dir/$file_name"
-    echo "  network: \"$net_value\"" >> "$repo_dir/$file_name"
-    if [[ -n $host ]]; then
-        echo "  host: \"$host\"" >> "$repo_dir/$file_name"
-    fi
-    if [[ -n $network_opts ]]; then
+    # 输出到 YAML 文件，去掉多余的 | tcp
+    if [[ "$net_value" == "tcp" ]]; then
+        echo "- name: \"$new_ps | tcp\"" >> "$repo_dir/$file_name"
+        echo "  type: vmess" >> "$repo_dir/$file_name"
+        echo "  server: \"$server\"" >> "$repo_dir/$file_name"
+        echo "  port: $port" >> "$repo_dir/$file_name"
+        echo "  uuid: \"$uuid\"" >> "$repo_dir/$file_name"
+        echo "  alterId: $alterId" >> "$repo_dir/$file_name"
+        echo "  cipher: \"$cipher\"" >> "$repo_dir/$file_name"
+        echo "  udp: true" >> "$repo_dir/$file_name"
+        echo "  network: \"http\"" >> "$repo_dir/$file_name"
         echo "  $network_opts" >> "$repo_dir/$file_name"
+        echo "  servername: \"$new_host\"" >> "$repo_dir/$file_name"
+    else
+        echo "- name: \"$new_ps\"" >> "$repo_dir/$file_name"
+        echo "  type: vmess" >> "$repo_dir/$file_name"
+        echo "  server: \"$server\"" >> "$repo_dir/$file_name"
+        echo "  port: $port" >> "$repo_dir/$file_name"
+        echo "  uuid: \"$uuid\"" >> "$repo_dir/$file_name"
+        echo "  alterId: $alterId" >> "$repo_dir/$file_name"
+        echo "  cipher: \"$cipher\"" >> "$repo_dir/$file_name"
+        echo "  udp: true" >> "$repo_dir/$file_name"
+        echo "  network: \"$net_value\"" >> "$repo_dir/$file_name"
+        if [[ -n $host ]]; then
+            echo "  host: \"$host\"" >> "$repo_dir/$file_name"
+        fi
+        if [[ -n $network_opts ]]; then
+            echo "  $network_opts" >> "$repo_dir/$file_name"
+        fi
+        echo "  servername: \"$new_host\"" >> "$repo_dir/$file_name"
     fi
 }
 
