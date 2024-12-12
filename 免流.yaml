@@ -1,9 +1,11 @@
 proxies:
-- name: ""
+- name: "免 | ml"
   type: vmess
-  server: ""
-  port: 
-  uuid: ""
-  alterId: 
-  cipher: ""
-  network: ""
+  server: "113.44.158.163"
+  port: 8888
+  uuid: "fe34f8c7-2185-43da-d57a-c26c931745ab"
+  alterId: 0
+  cipher: "auto"
+  network: "tcp"
+  host: "space.dingtalk.com"
+  "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
