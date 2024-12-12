@@ -1,3 +1,4 @@
+
 #!/bin/bash
 # 自动处理未暂存的更改
 if [[ -n $(git status --porcelain) ]]; then
@@ -17,8 +18,6 @@ fi
 # 定义变量
 subscribe_links=(
     "https://gawrgura.moe/api/v1/client/subscribe?token=88c19ebe93a5c5d7eeeb0417aac3d12a"
-    #"https://xz.muguacloud.shop/api/v1/client/subscribe?token=5cdaa42b2a9aca037d53ce1cdd9f6b6f"
-   
 )  # 添加多个订阅链接
 new_host="space.dingtalk.com"
 replace_prefix="免"
@@ -29,70 +28,68 @@ file_name="免流.yaml"  # 最终输出文件名
 {
   echo "proxies:"
 
-  # 遍历每个订阅链接
-  for subscribe_link in "${subscribe_links[@]}"; do
-      # 下载文件，不要修改UA
-      curl -A "v2rayNG/1.8.0" -o downloaded_file "$subscribe_link"
+  # 手动添加单个 VMess 节点
+  single_node="vmess://eyJhZGQiOiIxMTMuNDQuMTU4LjE2MyIsImFpZCI6IjAiLCJhbHBuIjoiIiwiZnAiOiIiLCJob3N0Ijoic3BhY2UuZGluZ3RhbGsuY29tIiwiaWQiOiJmZTM0ZjhjNy0yMTg1LTQzZGEtZDU3YS1jMjZjOTMxNzQ1YWIiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiLyIsInBvcnQiOiI4ODg4IiwicHMiOiLljJfkuqwzbSIsInNjeSI6ImF1dG8iLCJzbmkiOiIiLCJ0bHMiOiIiLCJ0eXBlIjoiaHR0cCIsInYiOiIyIn0="
+  encoded_vmess=${single_node#vmess://}  # 去掉开头的"vmess://"
+  json_str=$(echo "$encoded_vmess" | base64 -d)  # base64解密
 
-      # base64解码下载的文件
-      base64 -d downloaded_file > decoded_file
+  server=$(echo "$json_str" | jq -r '.add')
+  port=$(echo "$json_str" | jq -r '.port')
+  uuid=$(echo "$json_str" | jq -r '.id')
+  alterId=$(echo "$json_str" | jq -r '.aid')
+  cipher=$(echo "$json_str" | jq -r '.scy // "auto"')
+  net_value=$(echo "$json_str" | jq -r '.net')
+  ws_path=$(echo "$json_str" | jq -r '.path // "/"')
+  ps_value=$(echo "$json_str" | jq -r '.ps // "Unnamed"')
+  host=$(echo "$json_str" | jq -r '.host // ""')
+  type_value=$(echo "$json_str" | jq -r '.type // ""')
 
-      # 读取文件逐行处理
-      while IFS= read -r line; do
-          # 跳过 VLESS 节点
-          if [[ $line == vless://* ]]; then
-              continue
-          fi
+  if [[ "$net_value" == "ws" ]]; then
+      new_ps="$replace_prefix | $ps_value"
+      network_opts="\"ws-opts\": { \"path\": \"$ws_path\", \"headers\": { \"Host\": \"$new_host\" } }"
+  elif [[ "$net_value" == "tcp" && "$type_value" == "http" ]]; then
+      new_ps="$replace_prefix | $ps_value"
+      network_opts="\"http-opts\": { \"path\": [\"/\"], \"headers\": { \"Connection\": [\"keep-alive\"], \"Host\": [\"$new_host\"] } }"
+  else
+      network_opts=""
+  fi
 
-          if [[ $line == vmess://* ]]; then
-              encoded_vmess=${line#vmess://}  # 去掉开头的"vmess://"
-              json_str=$(echo "$encoded_vmess" | base64 -d)  # base64解密
+  # 输出到 YAML 格式
+  echo "- name: \"$new_ps\""
+  echo "  type: vmess"
+  echo "  server: \"$server\""
+  echo "  port: $port"
+  echo "  uuid: \"$uuid\""
+  echo "  alterId: $alterId"
+  echo "  cipher: \"$cipher\""
+  echo "  network: \"$net_value\""
+  if [[ -n $host ]]; then
+      echo "  host: \"$host\""
+  fi
+  if [[ -n $network_opts ]]; then
+      echo "  $network_opts"
+  fi
 
-              server=$(echo "$json_str" | jq -r '.add')
-              port=$(echo "$json_str" | jq -r '.port')
-              uuid=$(echo "$json_str" | jq -r '.id')
-              alterId=$(echo "$json_str" | jq -r '.aid')
-              cipher=$(echo "$json_str" | jq -r '.cipher // "auto"')
-              net_value=$(echo "$json_str" | jq -r '.net')
-              ws_path=$(echo "$json_str" | jq -r '.path // "/"')
-              ps_value=$(echo "$json_str" | jq -r '.ps // "Unnamed"')
-              host=$(echo "$json_str" | jq -r '.host // ""')
-              type_value=$(echo "$json_str" | jq -r '.type // ""')
+} > "$repo_dir/$file_name"
 
-              if [[ "$net_value" == "ws" ]]; then
-                  new_ps="$replace_prefix | $ps_value"
-                  network_opts="\"ws-opts\": { \"path\": \"$ws_path\", \"headers\": { \"Host\": \"$new_host\" } }"
-              elif [[ "$net_value" == "tcp" && "$type_value" == "http" ]]; then
-                  new_ps="$replace_prefix | $ps_value"
-                  network_opts="\"http-opts\": { \"path\": [\"/\"], \"headers\": { \"Connection\": [\"keep-alive\"], \"Host\": [\"$new_host\"] } }"
-              else
-                  new_ps="$replace_prefix | $ps_value"
-                  network_opts=""
-              fi
-
-              # 输出到文件，去掉多余的 | tcp
-              if [[ "$net_value" == "tcp" ]]; then
-                  echo "  - { \"name\": \"$new_ps | tcp\", \"type\": \"vmess\", \"server\": \"$server\", \"port\": $port, \"uuid\": \"$uuid\", \"alterId\": $alterId, \"cipher\": \"$cipher\", \"udp\": true, \"network\": \"http\", $network_opts, \"servername\": \"$new_host\" }"
-              else
-                  echo "  - { \"name\": \"$new_ps\", \"type\": \"vmess\", \"server\": \"$server\", \"port\": $port, \"uuid\": \"$uuid\", \"alterId\": $alterId, \"cipher\": \"$cipher\", \"udp\": true, \"network\": \"$net_value\", $network_opts, \"servername\": \"$new_host\" }"
-              fi
-          fi
-      done < decoded_file
-
-      # 清理临时文件
-      rm downloaded_file decoded_file
-  done
-} > "$repo_dir/$file_name"  # 确保整个内容输出到文件中
-
-# 切换到仓库目录并推送到 GitHub
-cd "$repo_dir"
-
-echo "正在从 GitHub 拉取最新的更改..."
+# 推送到 GitHub
+cd "$repo_dir" || exit
 git pull origin main
-
-echo "正在推送更新..."
 git add "$file_name"
-git commit -m "Auto update subscription file"
+git commit -m "更新 $file_name 文件"
 git push origin main
 
-echo "处理完成并已推送到GitHub，文件名为 $file_name"
+脚本功能：
+
+1. 解析单个 VMess 节点：通过 Base64 解码获取 JSON 信息并解析每个字段。
+
+
+2. 生成 YAML 格式：支持 ws 或 http 等网络类型。
+
+
+3. Git 自动提交：将生成的 YAML 文件推送到指定仓库。
+
+
+
+运行脚本后，生成的 免流.yaml 文件会自动推送到你的 GitHub 仓库。
+
