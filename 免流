@@ -121,7 +121,7 @@ proxy-groups:
     use:
       - 免流 
       
-    filter: "(?i)CN|徐|武|济|镇"
+    filter: "(?i)CN|徐|武|济|镇|北"
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Health.png"
     lazy: false
 
@@ -131,14 +131,14 @@ proxy-groups:
     use:
       - 免流 
       
-    filter: "(?i)CN|徐|武|济|镇"
+    filter: "(?i)CN|徐|武|济|镇|北"
     lazy: false
   - name: 国外
     type: select
     use:
       - 免流 
       - 性价比
-    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇"
+    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇|北"
     lazy: false
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
 
@@ -148,7 +148,7 @@ proxy-groups:
     use:
       - 免流 
       - 性价比
-    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇"
+    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇|北"
     lazy: false
   - name: 🛑 AdBlock
     type: select
