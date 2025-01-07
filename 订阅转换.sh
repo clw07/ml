@@ -19,7 +19,7 @@ fi
 subscribe_links=(
     "https://gawrgura.moe/api/v1/client/subscribe?token=88c19ebe93a5c5d7eeeb0417aac3d12a"
 )  # 订阅链接数组
-single_node="vmess://ewogICJ2IjogIjIiLAogICJwcyI6ICLljJfkuqwzbSIsCiAgImFkZCI6ICIxMTMuNDQuMTU4LjE2MyIsCiAgInBvcnQiOiA4ODg4LAogICJpZCI6ICJmZTM0ZjhjNy0yMTg1LTQzZGEtZDU3YS1jMjZjOTMxNzQ1YWIiLAogICJhaWQiOiAwLAogICJuZXQiOiAidGNwIiwKICAidHlwZSI6ICJodHRwIiwKICAiaG9zdCI6ICIiLAogICJwYXRoIjogIi8iLAogICJ0bHMiOiAibm9uZSIKfQ=="
+single_node="vmess://eyJhZGQiOiIxMTMuNDQuMTU4LjE2MyIsImFpZCI6IjAiLCJhbHBuIjoiIiwiZnAiOiIiLCJob3N0IjoiIiwiaWQiOiI5YTc5ZDYwOS1kMjkxLTRmNDktOGIyOC1jM2M1NGFlNzcyOGIiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiLyIsInBvcnQiOiI4ODg4IiwicHMiOiLmlocgIOWMl+S6rDNNIiwic2N5IjoiYXV0byIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiJodHRwIiwidiI6IjIifQ=="
 new_host="space.dingtalk.com"
 replace_prefix="免"
 repo_dir="/data/data/com.termux/files/home/ml"  # Git仓库本地路径
