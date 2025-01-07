@@ -371,8 +371,8 @@ proxies:
   servername: "space.dingtalk.com"
 - name: "免 | 韩国 01 | ws"
   type: vmess
-  server: "b1e64277-b52f-014a-4cc0-5c10bc1f0a20.castlepeakhospital.moe"
-  port: 80
+  server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
+  port: 20000
   uuid: "ef29bee2-2169-450b-804b-598b1e963109"
   alterId: 0
   cipher: "auto"
@@ -383,8 +383,8 @@ proxies:
   servername: "space.dingtalk.com"
 - name: "免 | 韩国 02 | tcp | tcp"
   type: vmess
-  server: "eeb72f2c-8cb7-8a20-0908-7ffef5a0ccba.castlepeakhospital.moe"
-  port: 80
+  server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
+  port: 20001
   uuid: "ef29bee2-2169-450b-804b-598b1e963109"
   alterId: 0
   cipher: "auto"
@@ -393,30 +393,6 @@ proxies:
   "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
   servername: "space.dingtalk.com"
 - name: "免 | 美国 01 | ws"
-  type: vmess
-  server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
-  port: 20010
-  uuid: "ef29bee2-2169-450b-804b-598b1e963109"
-  alterId: 0
-  cipher: "auto"
-  udp: true
-  network: "ws"
-  host: "tms.dingtalk.com"
-  "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
-  servername: "space.dingtalk.com"
-- name: "免 | 美国 02 | ws"
-  type: vmess
-  server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
-  port: 20011
-  uuid: "ef29bee2-2169-450b-804b-598b1e963109"
-  alterId: 0
-  cipher: "auto"
-  udp: true
-  network: "ws"
-  host: "tms.dingtalk.com"
-  "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
-  servername: "space.dingtalk.com"
-- name: "免 | 美国 03 | ws"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20012
@@ -428,7 +404,7 @@ proxies:
   host: "tms.dingtalk.com"
   "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
   servername: "space.dingtalk.com"
-- name: "免 | 美国 04 | tcp | tcp"
+- name: "免 | 美国 02 | ws"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20013
@@ -436,10 +412,11 @@ proxies:
   alterId: 0
   cipher: "auto"
   udp: true
-  network: "http"
-  "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
+  network: "ws"
+  host: "tms.dingtalk.com"
+  "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
   servername: "space.dingtalk.com"
-- name: "免 | 美国 05 | tcp | tcp"
+- name: "免 | 美国 03 | ws"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20014
@@ -447,10 +424,11 @@ proxies:
   alterId: 0
   cipher: "auto"
   udp: true
-  network: "http"
-  "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
+  network: "ws"
+  host: "tms.dingtalk.com"
+  "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
   servername: "space.dingtalk.com"
-- name: "免 | 美国 06 | tcp | tcp"
+- name: "免 | 美国 04 | tcp | tcp"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20015
@@ -461,22 +439,10 @@ proxies:
   network: "http"
   "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
   servername: "space.dingtalk.com"
-- name: "免 | 俄罗斯 01 | ws"
+- name: "免 | 美国 05 | tcp | tcp"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
-  port: 20020
-  uuid: "ef29bee2-2169-450b-804b-598b1e963109"
-  alterId: 0
-  cipher: "auto"
-  udp: true
-  network: "ws"
-  host: "tms.dingtalk.com"
-  "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
-  servername: "space.dingtalk.com"
-- name: "免 | 俄罗斯 02 | tcp | tcp"
-  type: vmess
-  server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
-  port: 20021
+  port: 20016
   uuid: "ef29bee2-2169-450b-804b-598b1e963109"
   alterId: 0
   cipher: "auto"
@@ -484,7 +450,18 @@ proxies:
   network: "http"
   "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
   servername: "space.dingtalk.com"
-- name: "免 | 乌克兰 01 | ws"
+- name: "免 | 美国 06 | tcp | tcp"
+  type: vmess
+  server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
+  port: 20017
+  uuid: "ef29bee2-2169-450b-804b-598b1e963109"
+  alterId: 0
+  cipher: "auto"
+  udp: true
+  network: "http"
+  "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
+  servername: "space.dingtalk.com"
+- name: "免 | 俄罗斯 01 | ws"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20022
@@ -496,7 +473,7 @@ proxies:
   host: "tms.dingtalk.com"
   "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
   servername: "space.dingtalk.com"
-- name: "免 | 乌克兰 02 | tcp | tcp"
+- name: "免 | 俄罗斯 02 | tcp | tcp"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20023
@@ -507,7 +484,7 @@ proxies:
   network: "http"
   "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
   servername: "space.dingtalk.com"
-- name: "免 | 土耳其 01 | ws"
+- name: "免 | 乌克兰 01 | ws"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20024
@@ -519,7 +496,7 @@ proxies:
   host: "tms.dingtalk.com"
   "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
   servername: "space.dingtalk.com"
-- name: "免 | 土耳其 02 | tcp | tcp"
+- name: "免 | 乌克兰 02 | tcp | tcp"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20025
@@ -530,7 +507,7 @@ proxies:
   network: "http"
   "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
   servername: "space.dingtalk.com"
-- name: "免 | 伊拉克 01 | ws"
+- name: "免 | 土耳其 01 | ws"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20026
@@ -542,7 +519,7 @@ proxies:
   host: "tms.dingtalk.com"
   "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
   servername: "space.dingtalk.com"
-- name: "免 | 伊拉克 02 | tcp | tcp"
+- name: "免 | 土耳其 02 | tcp | tcp"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20027
@@ -553,7 +530,7 @@ proxies:
   network: "http"
   "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
   servername: "space.dingtalk.com"
-- name: "免 | 德国 01 | ws"
+- name: "免 | 伊拉克 01 | ws"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20028
@@ -565,7 +542,7 @@ proxies:
   host: "tms.dingtalk.com"
   "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
   servername: "space.dingtalk.com"
-- name: "免 | 德国 02 | tcp | tcp"
+- name: "免 | 伊拉克 02 | tcp | tcp"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20029
@@ -576,7 +553,7 @@ proxies:
   network: "http"
   "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
   servername: "space.dingtalk.com"
-- name: "免 | 英国 01 | ws"
+- name: "免 | 德国 01 | ws"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20030
@@ -588,7 +565,7 @@ proxies:
   host: "tms.dingtalk.com"
   "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
   servername: "space.dingtalk.com"
-- name: "免 | 英国 02 | tcp | tcp"
+- name: "免 | 德国 02 | tcp | tcp"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
   port: 20031
@@ -599,10 +576,33 @@ proxies:
   network: "http"
   "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
   servername: "space.dingtalk.com"
+- name: "免 | 英国 01 | ws"
+  type: vmess
+  server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
+  port: 20032
+  uuid: "ef29bee2-2169-450b-804b-598b1e963109"
+  alterId: 0
+  cipher: "auto"
+  udp: true
+  network: "ws"
+  host: "tms.dingtalk.com"
+  "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
+  servername: "space.dingtalk.com"
+- name: "免 | 英国 02 | tcp | tcp"
+  type: vmess
+  server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
+  port: 20033
+  uuid: "ef29bee2-2169-450b-804b-598b1e963109"
+  alterId: 0
+  cipher: "auto"
+  udp: true
+  network: "http"
+  "http-opts": { "path": ["/"], "headers": { "Connection": ["keep-alive"], "Host": ["space.dingtalk.com"] } }
+  servername: "space.dingtalk.com"
 - name: "免 | 芬兰 01 | ws"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
-  port: 20034
+  port: 20036
   uuid: "ef29bee2-2169-450b-804b-598b1e963109"
   alterId: 0
   cipher: "auto"
@@ -614,7 +614,7 @@ proxies:
 - name: "免 | 芬兰 02 | tcp | tcp"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
-  port: 20035
+  port: 20037
   uuid: "ef29bee2-2169-450b-804b-598b1e963109"
   alterId: 0
   cipher: "auto"
@@ -625,7 +625,7 @@ proxies:
 - name: "免 | 卢森堡 01 | ws"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
-  port: 20044
+  port: 20046
   uuid: "ef29bee2-2169-450b-804b-598b1e963109"
   alterId: 0
   cipher: "auto"
@@ -637,7 +637,7 @@ proxies:
 - name: "免 | 卢森堡 02 | tcp | tcp"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
-  port: 20045
+  port: 20047
   uuid: "ef29bee2-2169-450b-804b-598b1e963109"
   alterId: 0
   cipher: "auto"
@@ -648,7 +648,7 @@ proxies:
 - name: "免 | 阿根廷 01 | ws"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
-  port: 20054
+  port: 20056
   uuid: "ef29bee2-2169-450b-804b-598b1e963109"
   alterId: 0
   cipher: "auto"
@@ -660,7 +660,7 @@ proxies:
 - name: "免 | 阿根廷 02 | ws"
   type: vmess
   server: "f77f38c7-faea-1c49-708a-489769f53c40.7head.icu"
-  port: 20055
+  port: 20057
   uuid: "ef29bee2-2169-450b-804b-598b1e963109"
   alterId: 0
   cipher: "auto"
@@ -669,11 +669,11 @@ proxies:
   host: "tms.dingtalk.com"
   "ws-opts": { "path": "/", "headers": { "Host": "space.dingtalk.com" } }
   servername: "space.dingtalk.com"
-- name: "免 | 北京3m | tcp"
+- name: "免 | 文  北京3M | tcp"
   type: vmess
   server: "113.44.158.163"
   port: 8888
-  uuid: "fe34f8c7-2185-43da-d57a-c26c931745ab"
+  uuid: "9a79d609-d291-4f49-8b28-c3c54ae7728b"
   alterId: 0
   cipher: "auto"
   udp: true
