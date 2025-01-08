@@ -54,73 +54,55 @@ tun:
 
 dns:
   cache-algorithm: arc
-  enable: true # 启用自定义 DNS
-  prefer-h3: false # 是否开启 DoH 支持 HTTP/3，将并发尝试
-  listen: 0.0.0.0:53 # 开启 DNS 服务器监听
-  # ipv6: false # false 将返回 AAAA 的空结果
-  # ipv6-timeout: 300 # 单位：ms，内部双栈并发时，向上游查询 AAAA 时，等待 AAAA 的时间，默认 100ms
+  enable: true  # 启用自定义 DNS
+  prefer-h3: true  # 启用 HTTP/3 支持
+  listen: 0.0.0.0:53  # 开启 DNS 服务器监听
   default-nameserver:
-    - 114.114.114.114
-    - 8.8.8.8
-    - tls://1.12.12.12:853
-    - tls://223.5.5.5:853
-    - system # 追加系统 DNS 配置
-  enhanced-mode: fake-ip # 使用 fake-ip 模式
-
-  fake-ip-range: 198.18.0.1/16 # fake-ip 池设置
-
-  # 配置不使用 fake-ip 的域名
-  fake-ip-filter:
+    - 114.114.114.114  # 国内 DNS
+    - 8.8.8.8  # Google DNS
+    - tls://1.12.12.12:853  # DNS over TLS
+    - tls://223.5.5.5:853  # 阿里 DNS over TLS
+    - system  # 追加系统 DNS 配置
+  enhanced-mode: fake-ip  # 使用 fake-ip 模式
+  fake-ip-range: 198.18.0.1/16  # fake-ip 池设置
+  fake-ip-filter:  # 配置不使用 fake-ip 的域名
     - '*.lan'
     - localhost.ptlogin2.qq.com
-    
-    
-  
-  # 主要 DNS 配置
-  nameserver:
-    - 114.114.114.114 # 国内 DNS
-    - 223.5.5.5 # 阿里 DNS
-    - tls://223.5.5.5:853 # DNS over TLS
-    - https://doh.pub/dns-query # 国内 DoH
-    - https://dns.alidns.com/dns-query # 阿里 DoH
-    - dhcp://en0 # 从 DHCP 获取 DNS
-
-  # Fallback DNS 配置，用于解析国外域名
-  fallback:
-    - tls://1.1.1.1:853 # Cloudflare DNS over TLS
-    - tls://8.8.8.8:853 # Google DNS over TLS
-    - https://dns.google/dns-query # Google DoH
-    - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH
-    - quic://dns.adguard.com:784 # DNS over QUIC
-  direct-nameserver:
-    - system://
-  direct-nameserver-follow-policy: false # 是否
-
-  # 配置 fallback 使用条件
-  fallback-filter:
-    geoip: true # 使用 geoip 判断
-    geoip-code: CN # 当 IP 属于 CN 时，不使用 fallback
+  nameserver:  # 主要 DNS 配置
+    - 114.114.114.114  # 国内 DNS
+    - 223.5.5.5  # 阿里 DNS
+    - tls://223.5.5.5:853  # DNS over TLS
+    - https://doh.pub/dns-query  # 国内 DoH
+    - https://dns.alidns.com/dns-query  # 阿里 DoH
+    - dhcp://en0  # 从 DHCP 获取 DNS
+  fallback:  # Fallback DNS 配置，用于解析国外域名
+    - tls://1.1.1.1:853  # Cloudflare DNS over TLS
+    - tls://8.8.8.8:853  # Google DNS over TLS
+    - https://dns.google/dns-query  # Google DoH
+    - https://mozilla.cloudflare-dns.com/dns-query  # Cloudflare DoH
+    - quic://dns.adguard.com:784  # DNS over QUIC（HTTP/3）
+  fallback-filter:  # 配置 fallback 使用条件
+    geoip: true  # 使用 geoip 判断
+    geoip-code: CN  # 当 IP 属于 CN 时，不使用 fallback
     geosite:
-      - gfw # 强制对 gfw 列表中的域名使用 fallback
+      - gfw  # 强制对 gfw 列表中的域名使用 fallback
     ipcidr:
       - 240.0.0.0/4
     domain:
       - '+.google.com'
       - '+.facebook.com'
       - '+.youtube.com'
-
-  # 配置查询域名使用的 DNS 服务器
-  nameserver-policy:
-    "geosite:cn":
+  nameserver-policy:  # 配置查询域名使用的 DNS 服务器
+    "geosite:cn":  # 国内域名使用国内 DNS
       - 114.114.114.114
       - 223.5.5.5
       - https://doh.pub/dns-query
       - https://dns.alidns.com/dns-query
-    "geosite:category-ads-all": rcode://success # 屏蔽广告域名
-    "www.baidu.com,+.google.cn":
+    "geosite:category-ads-all": rcode://success  # 屏蔽广告域名
+    "www.baidu.com,+.google.cn":  # 特定域名使用阿里 DNS
       - 223.5.5.5
       - https://dns.alidns.com/dns-query
-    "geosite:geolocation-!cn": # 国外域名使用 fallback
+    "geosite:geolocation-!cn":  # 国外域名使用 fallback
       - tls://1.1.1.1:853
       - tls://8.8.8.8:853
       - https://dns.google/dns-query
