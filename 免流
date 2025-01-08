@@ -27,7 +27,7 @@ geo-auto-update: false
 udp: true
 ipv6: true
 tcp-fast-open: true
-geodata-mode: true
+
 tcp-concurrent: true
 geodata-loader: standard
 global-client-fingerprint: android
