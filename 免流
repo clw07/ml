@@ -59,7 +59,7 @@ dns:
     - '*.lan'
     - localhost.ptlogin2.qq.com
     
-    - geosite:fakeip-filter
+    
   fake-ip-filter-mode: blacklist
 
   respect-rules: false
