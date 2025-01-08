@@ -60,10 +60,7 @@ dns:
     - localhost.ptlogin2.qq.com
     
     
-  fake-ip-filter-mode: blacklist
-
-  respect-rules: false
-
+  
   # 主要 DNS 配置
   nameserver:
     - 114.114.114.114 # 国内 DNS
