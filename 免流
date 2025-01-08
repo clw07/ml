@@ -3,7 +3,7 @@ p: &p
   interval: 3600
   health-check:
     enable: true
-    url: 'http://g.alicdn.com'
+    url: 'http://www.apple.com/library/test/success.html'
     interval: 300
     timeout: 2000
     tolerance: 30
