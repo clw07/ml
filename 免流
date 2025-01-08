@@ -13,6 +13,13 @@ log-level: debug
 allow-lan: true
 mixed-port: 7890
 unified-delay: true
+geodata-mode: true
+geox-url:
+  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+
+
 find-process-mode: strict
 keep-alive-interval: 1800
 geo-update-interval: 24
