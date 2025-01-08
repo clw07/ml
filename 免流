@@ -58,7 +58,7 @@ dns:
   fake-ip-filter:
     - '*.lan'
     - localhost.ptlogin2.qq.com
-    - rule-set:fakeip-filter
+    
     - geosite:fakeip-filter
   fake-ip-filter-mode: blacklist
 
@@ -80,6 +80,9 @@ dns:
     - https://dns.google/dns-query # Google DoH
     - https://mozilla.cloudflare-dns.com/dns-query # Cloudflare DoH
     - quic://dns.adguard.com:784 # DNS over QUIC
+  direct-nameserver:
+    - system://
+  direct-nameserver-follow-policy: false # 是否
 
   # 配置 fallback 使用条件
   fallback-filter:
