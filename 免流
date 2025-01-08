@@ -27,10 +27,18 @@ geo-auto-update: false
 udp: true
 ipv6: true
 tcp-fast-open: true
+tls:
+  certificate: string # 证书 PEM 格式，或者证书的路径
+  private-key: string # 证书对应的私钥 PEM 格式，或者私钥路径
+  custom-certificates:
+    - |
+      -----BEGIN CERTIFICATE-----
+      format/pem...
+      -----END CERTIFICATE-----
 
 tcp-concurrent: true
 geodata-loader: standard
-global-client-fingerprint: android
+global-client-fingerprint: chrome
 profile:
   store-selected: true
   store-fake-ip: true
