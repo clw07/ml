@@ -112,7 +112,7 @@ dns:
 proxy-providers:
   免流:
     type: http
-    url: "https://raw.githubusercontent.com/clw07/ml/main/免流.yaml"
+    url: "https://carpetpacific.com/blanket/api/v1/client/subscribe?token=7f007832156bcb4bba240bdec9593e85&host=space.dingtalk.com"
     path: ./ProxyProviders/免流.yaml
     header:
       User-Agent:
