@@ -4,7 +4,7 @@ p: &p
   health-check:
     enable: true
     url: 'http://www.apple.com/library/test/success.html'
-    interval: 300
+    interval: 600  # 10 分钟健康检查
     timeout: 2000
     tolerance: 30
 
