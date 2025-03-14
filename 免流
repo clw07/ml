@@ -45,9 +45,12 @@ profile:
 tun:
   enable: true
   stack: system
+  mtu: 1460 
+  mssfix: 1360 # 优化 MTU 减少分片
   auto-route: true
   auto-redir: true
-  auto-detect-interface: true
+  strict-route: true
+  endpoint-independent-nat: true
   dns-hijack:
     - "any:53"
     - "tcp://any:53"
