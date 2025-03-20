@@ -3,7 +3,7 @@ p: &p
   interval: 3600
   health-check:
     enable: true
-    url: 'http://www.apple.com/library/test/success.html'
+    url: 'https://captive.apple.com/hotspot-detect.html'
     interval: 600  # 10 分钟健康检查
     timeout: 2000
     tolerance: 30
