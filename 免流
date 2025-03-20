@@ -21,7 +21,7 @@ geox-url:
 
 
 find-process-mode: strict
-keep-alive-interval: 1800
+#keep-alive-interval: 1800
 geo-update-interval: 24
 geo-auto-update: false
 udp: true
