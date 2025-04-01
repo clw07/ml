@@ -45,8 +45,8 @@ profile:
 tun:
   enable: true
   stack: system
-  mtu: 1460 
-  mssfix: 1360 # 优化 MTU 减少分片
+  #mtu: 1460 
+  #mssfix: 1360 # 优化 MTU 减少分片
   auto-route: true
   auto-redir: true
   strict-route: true
