@@ -65,7 +65,7 @@ dns:
     - 8.8.8.8  # Google DNS
     - tls://1.12.12.12:853  # DNS over TLS
     - tls://223.5.5.5:853  # 阿里 DNS over TLS
-    - system  # 追加系统 DNS 配置
+    #- system  # 追加系统 DNS 配置
   enhanced-mode: fake-ip  # 使用 fake-ip 模式
   fake-ip-range: 198.18.0.1/16  # fake-ip 池设置
   fake-ip-filter:  # 配置不使用 fake-ip 的域名
@@ -77,13 +77,13 @@ dns:
     - tls://223.5.5.5:853  # DNS over TLS
     - https://doh.pub/dns-query  # 国内 DoH
     - https://dns.alidns.com/dns-query  # 阿里 DoH
-    - dhcp://en0  # 从 DHCP 获取 DNS
+    #- dhcp://en0  # 从 DHCP 获取 DNS
   fallback:  # Fallback DNS 配置，用于解析国外域名
     - tls://1.1.1.1:853  # Cloudflare DNS over TLS
     - tls://8.8.8.8:853  # Google DNS over TLS
     - https://dns.google/dns-query  # Google DoH
     - https://mozilla.cloudflare-dns.com/dns-query  # Cloudflare DoH
-    - quic://dns.adguard.com:784  # DNS over QUIC（HTTP/3）
+    #- quic://dns.adguard.com:784  # DNS over QUIC（HTTP/3）
   fallback-filter:  # 配置 fallback 使用条件
     geoip: true  # 使用 geoip 判断
     geoip-code: CN  # 当 IP 属于 CN 时，不使用 fallback
