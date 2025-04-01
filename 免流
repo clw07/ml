@@ -95,10 +95,7 @@ dns:
     "geosite:cn":
       - 223.6.6.6
       - https://doh.pub/dns-query
-    "geosite:category-ads-all": block://
-    "www.baidu.com,+.google.cn":
-      - 223.5.5.5
-
+    
 
 proxy-providers:
   免流:
