@@ -180,6 +180,9 @@ rules:
   - DOMAIN,toblog.ctobsnssdk.com,REJECT
   - DOMAIN,api-access.pangolin-sdk-toutiao.com.cn,REJECT
   - DOMAIN,dig.zjurl.cn.cn,REJECT
+  - DOMAIN-SUFFIX,.xn--ngstr-lra8j.com,proxy
+  - DOMAIN-SUFFIX,.googleapis.cn,proxy
+  - DOMAIN-SUFFIX,.dev,proxy
 
   # 广告拦截
   - RULE-SET,anti-ad,广告策略
