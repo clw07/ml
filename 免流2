@@ -38,8 +38,9 @@ tun:
 
 # DNS 增强配置
 dns:
-  cache-algorithm: arc
+  cache-size: 2048  # 增加DNS缓存容量
   enable: true
+  enable-ecs: true  # 启用EDNS客户端子网
   prefer-h3: true
   listen: 0.0.0.0:53
   default-nameserver:
@@ -56,6 +57,8 @@ dns:
     - '+.jd.com'
     - '+.xiaohongshu.com'
     - '*.lan'
+    - '+.douyin.com'
+    - '+.douyincdn.com'
     - localhost.ptlogin2.qq.com
   nameserver:
     - https://doh.pub/dns-query
@@ -180,6 +183,9 @@ rules:
   - DOMAIN,toblog.ctobsnssdk.com,REJECT
   - DOMAIN,api-access.pangolin-sdk-toutiao.com.cn,REJECT
   - DOMAIN,dig.zjurl.cn.cn,REJECT
+  - DOMAIN-SUFFIX,googleapis.com,国际策略
+  - DOMAIN-SUFFIX,gvt1.com,国际策略
+  - DOMAIN-KEYWORD,ggpht,国际策略  # 安卓应用缩略图
   - DOMAIN-SUFFIX,.xn--ngstr-lra8j.com,国际策略
   - DOMAIN-SUFFIX,.googleapis.cn,国际策略
   - DOMAIN-SUFFIX,.dev,国际策略
