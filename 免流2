@@ -4,7 +4,7 @@ p: &p
   interval: 3600
   health-check:
     enable: true
-    url: 'https://captive.apple.com/hotspot-detect.html'
+    url: 'http://wifi.vivo.com.cn/generate_204'
     interval: 600
     timeout: 2000
     tolerance: 30
