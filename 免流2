@@ -1,0 +1,222 @@
+# 基础配置 (保留你原有参数)
+p: &p
+  type: http
+  interval: 3600
+  health-check:
+    enable: true
+    url: 'https://captive.apple.com/hotspot-detect.html'
+    interval: 600
+    timeout: 2000
+    tolerance: 30
+
+mode: rule
+log-level: debug
+allow-lan: true
+mixed-port: 7890
+unified-delay: true
+
+geox-url:
+  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+
+find-process-mode: strict
+geo-update-interval: 24
+geo-auto-update: false
+udp: true
+ipv6: true
+tcp-fast-open: true
+tun:
+  enable: true
+  stack: system
+  auto-route: true
+  auto-redir: true
+  strict-route: true
+  endpoint-independent-nat: true 
+  dns-hijack: 
+    - "any:53"
+
+# DNS 增强配置
+dns:
+  cache-algorithm: arc
+  enable: true
+  prefer-h3: true
+  listen: 0.0.0.0:53
+  default-nameserver:
+    - 119.29.29.29
+    - 223.6.6.6
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '+.cn'
+    - '+.qq.com'
+    - '+.weixin.com'
+    - '+.bilibili.com'
+    - '+.taobao.com'
+    - '+.jd.com'
+    - '+.xiaohongshu.com'
+    - '*.lan'
+    - localhost.ptlogin2.qq.com
+  nameserver:
+    - https://doh.pub/dns-query
+    - tls://223.6.6.6:853
+  fallback:
+    - tls://8.8.8.8:853
+    - tls://1.1.1.1:853
+  fallback-filter:
+    geoip: false
+    geosite: 
+      - gfw
+    ipcidr:
+      - 240.0.0.0/4
+
+# 代理提供商配置 (保留原有)
+proxy-providers:
+  免流:
+    <<: *p
+    type: http
+    url: "https://carpetpacific.com/blanket/api/v1/client/subscribe?token=7f007832156bcb4bba240bdec9593e85&host=space.dingtalk.com"
+    path: ./ProxyProviders/免流.yaml
+    header:
+      User-Agent:
+        - "Clash/v1.18.0"
+        - "mihomo/v1.18.5"
+        - "Clash.Meta/v2.10.2"
+        - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36"
+    lazy: false
+    timeout: 5000
+
+  性价比:
+    <<: *p
+    type: http
+    url: "https://proxyinfo.net/api/v1/client/subscribe?token=1327869edc6c0bd6802060e4e1b67be5"
+    path: ./ProxyProviders/性价比.yaml
+    header:
+      User-Agent: 
+        - "Clash/v1.18.0"
+        - "mihomo/v1.18.5"
+        - "Clash.Meta/v2.10.2"
+        - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36"
+    lazy: false
+    timeout: 5000
+
+# 代理组优化
+proxy-groups:
+  - name: 流量总控
+    type: select
+    proxies:
+      - 国内策略
+      - 国际策略
+      - DIRECT
+    icon: "https://example.com/global.png"
+
+  - name: 国内策略
+    type: select
+    proxies:
+      - 国内智能选择
+      - DIRECT
+      - 国际策略  # 容灾选项
+    icon: "https://example.com/cn.png"
+
+  - name: 国内智能选择
+    type: url-test
+    use:
+      - 免流
+    filter: "(?i)CN|徐|武|济|镇|北"
+    interval: 600
+    tolerance: 100
+    lazy: false
+
+  - name: 国际策略
+    type: select
+    proxies:
+      - 自动优选
+      - 负载均衡
+    icon: "https://example.com/global.png"
+
+  - name: 自动优选
+    type: url-test
+    use:
+      - 免流
+      - 性价比
+    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇|北"
+    interval: 600
+    tolerance: 150
+
+  - name: 负载均衡
+    type: load-balance
+    strategy: round-robin
+    use:
+      - 免流
+      - 性价比
+    exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇|北"
+    interval: 300
+
+  - name: 广告策略
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+      - 国际策略
+    icon: "https://example.com/ad.png"
+
+# 规则系统优化
+rules:
+  # 即时通讯直连
+  #- DOMAIN-SUFFIX,qq.com,DIRECT
+  #- DOMAIN-SUFFIX,weixin.com,DIRECT
+  
+
+  - DOMAIN,mcdn.bilivideo.cn,REJECT
+  - DOMAIN,tracker.biliapi.net,REJECT
+  - DOMAIN-SUFFIX,chat.bilibili.com,REJECT
+  - DOMAIN-SUFFIX,szbdyd.com,REJECT
+  - DOMAIN,dig.bdurl.net,REJECT
+  - DOMAIN,g.cn.miaozhen.com,REJECT
+  - DOMAIN,im-x.jd.com,REJECT
+  - DOMAIN,ads3-normal-lq.zijieapi.com,REJECT
+  - DOMAIN,log-api.pangolin-sdk-toutiao-b.com,REJECT
+  - DOMAIN,tobapplog.ctobsnssdk.com,REJECT
+  - DOMAIN,toblog.ctobsnssdk.com,REJECT
+  - DOMAIN,api-access.pangolin-sdk-toutiao.com.cn,REJECT
+  - DOMAIN,dig.zjurl.cn.cn,REJECT
+
+  # 广告拦截
+  - RULE-SET,anti-ad,广告策略
+  - RULE-SET,秋风广告规则,广告策略
+
+  # 国内服务
+  - GEOSITE,CN,国内策略
+  - GEOIP,CN,国内策略
+
+  # 国际服务
+  - GEOSITE,youtube,国际策略
+  - GEOSITE,google,国际策略
+  - GEOSITE,netflix,国际策略
+  - GEOSITE,openai,国际策略
+
+  # 最终规则
+  - MATCH,流量总控
+
+# 规则提供者
+rule-providers:
+  anti-ad:
+    type: http
+    behavior: domain
+    url: https://anti-ad.net/clash.yaml
+    path: ./Rules/anti-ad
+    interval: 86400
+
+  秋风广告规则:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"
+    path: ./Rules/AWAvenue-Ads-Rule-Clash
+    interval: 86400
+
+  openai:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"
+    path: ./Rules/OpenAI
+    interval: 86400
