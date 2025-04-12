@@ -26,6 +26,8 @@ geo-auto-update: false
 udp: true
 ipv6: true
 tcp-fast-open: true
+
+  
 tun:
   enable: true
   stack: system
@@ -63,6 +65,9 @@ dns:
   nameserver:
     - https://doh.pub/dns-query
     - tls://223.6.6.6:853
+  direct-nameserver:
+    - system://
+  direct-nameserver-follow-policy: false # 是否遵循nameserver-policy，默认为不遵守，仅当direct-nameserver不为空时生效
   fallback:
     - tls://8.8.8.8:853
     - tls://1.1.1.1:853
