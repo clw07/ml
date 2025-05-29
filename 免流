@@ -127,14 +127,14 @@ proxy-providers:
   
 
 proxy-groups:
-  - name: proxy
+  - name: Proxy
     type: select
     proxies:
       - 国外
       - 国外自动
     icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
 
-  - name: domestic
+  - name: Domestic
     type: select
     proxies:
       - 国内
@@ -178,38 +178,33 @@ proxy-groups:
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇|北"
     lazy: false
   "
-
+sub-rules:
+  rule1:
+   - AND,((DST-PORT,80/443),(NETWORK,TCP)),Domestic
+   - AND,((NETWORK,UDP)),Domestic
+# 国内兜底
+   - MATCH,Domestic
+   - MATCH,REJECT
 rules:
-  
-  - DOMAIN,mcdn.bilivideo.cn,REJECT
-  - DOMAIN,tracker.biliapi.net,REJECT
-  - DOMAIN-SUFFIX,chat.bilibili.com,REJECT
-  - DOMAIN-SUFFIX,szbdyd.com,REJECT
-  - DOMAIN,dig.bdurl.net,REJECT
-  - DOMAIN,g.cn.miaozhen.com,REJECT
-  - DOMAIN,im-x.jd.com,REJECT
-  - DOMAIN,ads3-normal-lq.zijieapi.com,REJECT
-  - DOMAIN,log-api.pangolin-sdk-toutiao-b.com,REJECT
-  - DOMAIN,tobapplog.ctobsnssdk.com,REJECT
-  - DOMAIN,toblog.ctobsnssdk.com,REJECT
-  - DOMAIN,api-access.pangolin-sdk-toutiao.com.cn,REJECT
-  - DOMAIN,dig.zjurl.cn.cn,REJECT
-  #- DOMAIN-SUFFIX,.xn--ngstr-lra8j.com,proxy
-  #- DOMAIN-SUFFIX,.googleapis.cn,proxy
-  #- DOMAIN-SUFFIX,.dev,proxy
-  - GEOSITE,youtube,proxy
-  
-  
- 
-  - GEOSITE,CN,domestic
-  - GEOIP,CN,domestic
-  - GEOSITE,category-ads-all,🛑 AdBlock
-  
-  - RULE-SET,秋风广告规则,🛑 AdBlock
-  - RULE-SET,OpenAI,proxy
-  
-  - MATCH,proxy
-  
+# clash内部处理dns
+ # - DST-PORT,53,DNS-OUT
+# 屏蔽/广告拦截
+ # - AND,((DST-PORT,443),(NETWORK,UDP)),REJECT
+  # - OR,((RULE-SET,anti-ad),(RULE-SET,秋风广告规则)),广告策略
+# 国外分流
+  - OR,((GEOSITE,Google),(GEOIP,Google,no-resolve)),Proxy
+  - OR,((GEOSITE,Twitter),(GEOIP,Twitter,no-resolve)),Proxy
+  - OR,((GEOSITE,Telegram),(GEOIP,Telegram,no-resolve)),Proxy
+# proxy规则集
+  - OR,((GEOSITE,GEOLOCATION-!CN),(GEOIP,US,no-resolve)),Proxy
+# 国内主规则集
+  - SUB-RULE,(OR,((GEOSITE,CN),(GEOIP,CN,no-resolve))),rule1
+# 局域网直连
+  - OR,((GEOSITE,PRIVATE),(GEOIP,PRIVATE,no-resolve)),DIRECT
+# 国外兜底
+  - MATCH,Proxy
+# 防漏
+  - MATCH,REJECT
 
 
  
