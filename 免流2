@@ -83,7 +83,7 @@ proxy-providers:
   免流:
     <<: *p
     type: http
-    url: "https://carpetpacific.com/blanket/api/v1/client/subscribe?token=7f007832156bcb4bba240bdec9593e85&host=space.dingtalk.com"
+    url: "https://xtls.rprx.vision/api/v1/client/subscribe?token=c7da3baee37e872ce0516c5e971b433c"
     path: ./ProxyProviders/免流.yaml
     header:
       User-Agent:
