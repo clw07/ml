@@ -209,8 +209,7 @@ rules:
   - GEOSITE,google,国际策略
   - GEOSITE,netflix,国际策略
   - GEOSITE,openai,国际策略
-
-  # 最终规则
+  
   - MATCH,流量总控
 
 # 规则提供者
