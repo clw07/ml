@@ -177,16 +177,10 @@ proxy-groups:
       - 性价比
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇|北"
     lazy: false
-  - name: 🛑 AdBlock
-    type: select
-    proxies:
-      - REJECT
-      
-      - 国外
-    icon: "https://raw.githubusercontent.com/NB921/picture/main/Yu.png"
+  "
 
 rules:
-  - RULE-SET,anti-ad,🛑 AdBlock
+  
   - DOMAIN,mcdn.bilivideo.cn,REJECT
   - DOMAIN,tracker.biliapi.net,REJECT
   - DOMAIN-SUFFIX,chat.bilibili.com,REJECT
@@ -204,7 +198,7 @@ rules:
   #- DOMAIN-SUFFIX,.googleapis.cn,proxy
   #- DOMAIN-SUFFIX,.dev,proxy
   - GEOSITE,youtube,proxy
-  - OR,((GEOSITE,PRIVATE),(GEOIP,PRIVATE,NO-RESOLVE)),DIRECT
+  
   
  
   - GEOSITE,CN,domestic
@@ -215,30 +209,8 @@ rules:
   - RULE-SET,OpenAI,proxy
   
   - MATCH,proxy
-  - MATCH,REJECT
+  
 
-rule-providers:
-  anti-ad:
-    type: http
-    behavior: domain
-    url: https://anti-ad.net/clash.yaml
-    path: ./Rules/anti-ad
-    interval: 60000
 
-  秋风广告规则:
-    type: http
-    behavior: domain
-    format: yaml
-    path: ./Rules/AWAvenue-Ads-Rule-Clash
-    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"
-    interval: 60480
-
-  OpenAI:
-    type: http
-    behavior: classical
-    format: yaml
-    path: ./Rules/OpenAI
-    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"
-
-    interval: 60480
+ 
  
