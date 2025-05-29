@@ -204,11 +204,7 @@ rules:
   - GEOSITE,CN,国内策略
   - GEOIP,CN,国内策略
 
-  # 国际服务
-  - GEOSITE,youtube,国际策略
-  - GEOSITE,google,国际策略
-  - GEOSITE,netflix,国际策略
-  - GEOSITE,openai,国际策略
+  
   
   - MATCH,流量总控
 
