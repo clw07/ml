@@ -132,8 +132,7 @@ proxy-groups:
     proxies:
       - 国外
       - 国外自动
-    icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
-
+    
   - name: Domestic
     type: select
     proxies:
@@ -141,15 +140,14 @@ proxy-groups:
       - 国内自动
       - proxy
       - DIRECT
-    icon: "https://raw.githubusercontent.com/NB921/picture/main/Sdxz.png"
-
+    
   - name: 国内
     type: select
     use:
       - 免流 
       
     filter: "(?i)CN|徐|武|济|镇|北"
-    icon: "https://raw.githubusercontent.com/NB921/picture/main/Health.png"
+    
     lazy: false
 
   - name: 国内自动
@@ -167,7 +165,7 @@ proxy-groups:
       - 性价比
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇|北"
     lazy: false
-    icon: "https://raw.githubusercontent.com/NB921/picture/main/Golbal.png"
+    
 
   - name: 国外自动
     type: url-test
@@ -177,7 +175,7 @@ proxy-groups:
       - 性价比
     exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇|北"
     lazy: false
-  "
+  
 sub-rules:
   rule1:
    - AND,((DST-PORT,80/443),(NETWORK,TCP)),Domestic
