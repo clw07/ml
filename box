@@ -1,0 +1,287 @@
+mixed-port: 7890
+ipv6: true
+allow-lan: true
+unified-delay: true
+tcp-concurrent: true
+
+external-controller: 0.0.0.0:9090 
+secret: "130413"
+external-ui: ./dashboard
+
+external-ui-url: "https://proxy.pipers.cn/https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip"# 自定义外部用户界面下载地址 
+
+
+find-process-mode: strict
+global-client-fingerprint: chrome
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:
+    - geosite:geolocation-!cn
+    - geosite:cn
+
+tun:
+  enable: true
+  stack: system      # 最快最省的栈：内核级实现
+  # device: meta
+  mtu: 1450          # 黄金值，稳定通用
+  dns-hijack:
+    - any:53         # 劫持UDP DNS
+    - tcp://any:53   # 再加上TCP DNS，防止应用用DoT/DoH绕过
+  auto-route: true   # 自动接管所有流量
+  strict-route: true # 确保路由不漏流量
+  auto-redirect: true
+  auto-detect-interface: true
+
+dns:
+  cache-size: 2048  # 增加DNS缓存容量
+  enable: true
+  use-hosts: true
+  enable-ecs: true
+  max-ttl: 3600        # 最大缓存时间（秒）
+  negative-ttl: 300   # 启用EDNS客户端子网
+  prefer-h3: true
+  # 默认 dns, 用于解析 DNS 服务器 的域名
+  # 必须为 ip, 可为加密 dns
+         # 原保留项
+      # 新增：腾讯加密 DNS
+
+  # dns 服务监听
+  
+
+  # 可选值 fake-ip / redir-host
+  # Clash 的 dns 处理模式
+  enhanced-mode: fake-ip
+
+  # 格式为 ip/掩码
+  # fakeip 下的 IP 段设置，tun 网卡的默认 ip 也使用此值
+  fake-ip-range: 198.18.0.1/16
+
+  # fakeip 过滤，以下地址不会下发 fakeip 映射用于连接
+  fake-ip-filter:
+    - '*.lan'
+    - '*.local'                 # 新增：常见本地域名
+     # 新增：Windows 网络检测
+
+  # 默认的域名解析服务器，如不配置 fallback/proxy-server-nameserver , 则所有域名都由 nameserver 解析
+  nameserver:
+    - https://doh.pub/dns-query
+    - tls://223.6.6.6:853
+  # direct-nameserver:
+  #  - system://
+#  direct-nameserver-follow-policy: false # 是否遵循nameserver-policy，默认为不遵守，仅当direct-nameserver不为空时生效        # 新增：国内运营商 DNS
+
+  # 指定域名查询的解析服务器，可使用 geosite, 优先于 nameserver/fallback 查询
+  # Note: 并发查询，无法保证顺序，以下仅作为书写演示，建议根据自己需求写
+  nameserver-policy:
+    'geosite:cn': 223.5.5.5
+              # 游戏平台特殊处理
+
+  # 后备域名解析服务器，一般情况下使用境外 DNS, 保证结果可信
+  # 配置 fallback后默认启用 fallback-filter,geoip-code为 cn
+  fallback:
+    - tls://8.8.4.4             # 取消注释
+    - tls://1.1.1.1             # 取消注释
+    - https://dns.google/dns-query  # 新增：Google DoH
+
+  # 代理节点域名解析服务器，仅用于解析代理节点的域名
+ # proxy-server-nameserver:
+  #  - https://142206.alidns.com/dns-query  # 新增：阿里云加密 DNS
+ #   - tls://120.53.53.53:853           # 新增：腾讯云加密 DNS 
+ #   - https://1.1.1.1/dns-query        # 原保留项
+  #  - tls://dns.quad9.net:853          # 原保留项
+
+  # fallback-filter
+  # 后备域名解析服务器筛选，满足条件的将使用 fallback结果或只使用 fallback解析
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite:
+      - gfw
+     # - geolocation-!cn       # 新增：非中国地理定位域名
+    ipcidr:
+      - 240.0.0.0/4
+      - 172.16.0.0/12         # 新增：企业内网段过滤
+   # domain:
+     # - '+.google.com'
+    #  - '+.facebook.com'
+    #  - '+.youtube.com'
+    #  - '+.twitter.com'      
+# 百度代理配置
+
+
+# 机场测速及其他
+prs: &prs {type: http,header: {User-Agent: ["Clash/Mihomo/Clash.Meta"]}, health-check: {enable: true, url: http://wifi.vivo.com.cn/generate_204, interval: 300, lazy: true}}
+
+# 订阅集配置
+
+# 以下机场均可在订阅后面添加免流参数，添加方法: “订阅&host=你的混淆”
+# 国际机场: https://wget.moe#/register?code=gCq0GoRt
+# 橘子机场: https://citruslab.me/register?aff=7B1Fr8lt
+
+proxy-providers:
+  
+  国内:
+    type: http
+    url: "http://127.0.0.1:3000/download/collection/%E5%9B%BD%E5%86%85?target=ClashMeta"
+    path: ./proxy_providers/国内.yaml
+    
+    
+    <<: *prs  # 引用 p 参数
+    
+  国外:
+    type: http
+    url: "http://127.0.0.1:3000/download/collection/%E5%9B%BD%E5%A4%96?target=ClashMeta"
+    path: ./proxy_providers/国外.yaml
+    <<: *prs
+    
+
+
+proxies:
+  - name: DNS-OUT
+    type: dns
+
+
+# 国内策略组锚点
+proxy-groups:
+  - name: proxy
+    type: select
+    proxies:
+      
+      - 国际策略
+      - DIRECT
+    
+
+  - name: domestic
+    type: select
+    proxies:
+      - 国内智能选择
+      - DIRECT
+      - 国际策略  # 容灾选项
+   
+
+  - name: 国内智能选择
+    type: url-test
+    <<: *prs
+    use:
+      - 国内
+   # filter: "(?i)CN|徐|武|济|镇|北"
+    interval: 600
+    tolerance: 100
+    lazy: false
+
+  - name: 国际策略
+    type: select
+    proxies:
+      - 自动优选
+      - 负载均衡
+  #    - 最低延迟
+    
+  - name: 自动优选
+    type: url-test
+    
+    use:
+      - 国外
+      
+  #  exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇|北"
+    interval: 600
+    tolerance: 150
+
+  - name: 负载均衡
+    type: load-balance
+    strategy: round-robin
+    use:
+      - 国外
+      
+  #  exclude-filter: "(?i)CN|徐|武|济|州|禁止|官网|以下|剩余|到期|tg|镇|北"
+    interval: 300
+    
+ # - name: 最低延迟
+ #   type: url-test
+    
+  #  use:
+   #   - 免费
+      
+    
+  #  interval: 600
+ #   tolerance: 150
+    
+  - name: 广告策略
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+rule-providers:
+  anti-ad:
+    type: http
+    behavior: domain
+    url: https://anti-ad.net/clash.yaml
+    path: ./Rules/anti-ad
+    interval: 86400
+
+  
+  
+  adb:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockmihomolite.yaml
+    path: ./Rules/adb
+    interval: 86400
+
+  秋风广告规则:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"
+    path: ./Rules/AWAvenue-Ads-Rule-Clash
+    interval: 86400
+
+sub-rules:
+  rule1:
+   - AND,((DST-PORT,80/443),(NETWORK,TCP)),domestic
+   - AND,((NETWORK,UDP)),domestic
+# 国内兜底
+   - MATCH,domestic
+   - MATCH,REJECT
+
+rules:
+# clash内部处理dns
+  - DST-PORT,53,DNS-OUT
+# 屏蔽/广告拦截
+  - AND,((DST-PORT,443),(NETWORK,UDP)),广告策略
+  - OR,((RULE-SET,adb),(RULE-SET,anti-ad),(RULE-SET,秋风广告规则)),广告策略
+  
+  - DOMAIN-SUFFIX,github.com,proxy
+  - DOMAIN-SUFFIX,github.io,proxy
+  - DOMAIN-SUFFIX,githubassets.com,proxy
+  - DOMAIN-SUFFIX,githubusercontent.com,proxy
+  
+# 国外分流
+  - OR,((GEOSITE,Google),(GEOIP,Google,no-resolve)),proxy
+  - OR,((GEOSITE,Twitter),(GEOIP,Twitter,no-resolve)),proxy
+  - OR,((GEOSITE,Telegram),(GEOIP,Telegram,no-resolve)),proxy
+# 国外规则集
+  - OR,((GEOSITE,GEOLOCATION-!CN),(GEOIP,US,no-resolve)),proxy
+# 国内主规则集
+  - SUB-RULE,(OR,((GEOSITE,CN),(GEOIP,CN,no-resolve))),rule1
+# 局域网直连
+  - OR,((GEOSITE,PRIVATE),(GEOIP,PRIVATE,no-resolve)),DIRECT
+# 国外兜底
+  - MATCH,proxy
+# 防漏
+  - MATCH,REJECT
+
+tproxy-port: 
+redir-port: 
