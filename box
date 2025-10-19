@@ -135,7 +135,7 @@ proxy-providers:
   
   国内:
     type: http
-    url: "http://127.0.0.1:3000/download/collection/%E5%9B%BD%E5%86%85?target=ClashMeta"
+    url: "http://10.226.216.47:3000/download/collection/%E5%9B%BD%E5%86%85?target=ClashMeta"
     path: ./proxy_providers/国内.yaml
     
     
@@ -143,7 +143,7 @@ proxy-providers:
     
   国外:
     type: http
-    url: "http://127.0.0.1:3000/download/collection/%E5%9B%BD%E5%A4%96?target=ClashMeta"
+    url: "http://10.226.216.47:3000/download/collection/%E5%9B%BD%E5%A4%96?target=ClashMeta"
     path: ./proxy_providers/国外.yaml
     <<: *prs
     
